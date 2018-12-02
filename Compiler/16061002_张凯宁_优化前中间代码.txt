@@ -1,0 +1,994 @@
+RET: func_return_value
+
+    int  get_sum()
+    para  ints  a
+
+get_sum_begin_: 
+    #0 = judge + 1
+    judge = #0
+    #1 = count + 1
+    count = #1
+    b = 0
+    beq  a, 1, _18_label_
+    call  get_sum
+    #2 = a - 1
+    push  #2
+    jal  get_sum_begin_
+
+call_13_: 
+    #3 = RET
+    b = #3
+    #4 = judge + 1
+    judge = #4
+
+_18_label_: 
+    #5 = b + a
+    ret  #5
+    int  count_to_10()
+
+count_to_10_begin_: 
+    #6 = judge + 1
+    judge = #6
+    call  get_sum
+    push  10
+    jal  get_sum_begin_
+
+call_28_: 
+    #7 = RET
+    ret  #7
+    char  higher()
+    para  chars  a
+
+higher_begin_: 
+    ret  65
+    char  prt_message()
+
+prt_message_begin_: 
+    #8 = judge + 1
+    judge = #8
+    out   !#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~,  
+    ret  97
+    void  test_global_variable()
+
+test_global_variable_begin_: 
+    #9 = judge + 1
+    judge = #9
+    a = 0
+    flag = 0
+    count = 2
+    letter[0] = 97
+    letter[1] = 49
+    letter[2] = 95
+    letter[3] = 43
+    letter[4] = 65
+    out  count
+    #10 = letter[0]
+    out  #10
+    bne  count, 2, _59_label_
+    #11 = judge + 1
+    judge = #11
+
+_59_label_: 
+    bne  count, 1, _64_label_
+    #12 = judge + 1
+    judge = #12
+    flag = 1
+
+_64_label_: 
+    bne  flag, 0, _68_label_
+    #13 = judge + 1
+    judge = #13
+
+_68_label_: 
+    _ = 1
+    __ = 2
+    ___ = 3
+    __a__ = 4
+    _a_ = 5
+    flag = 0
+    bne  _, 1, _78_label_
+    #14 = judge + 1
+    judge = #14
+
+_78_label_: 
+    bne  _, 0, _81_label_
+    flag = 1
+
+_81_label_: 
+    bne  flag, 0, _85_label_
+    #15 = judge + 1
+    judge = #15
+
+_85_label_: 
+    flag = 0
+    bne  __, 2, _90_label_
+    #16 = judge + 1
+    judge = #16
+
+_90_label_: 
+    bne  __, 0, _95_label_
+    #17 = judge + 1
+    judge = #17
+    flag = 1
+
+_95_label_: 
+    bne  flag, 0, _99_label_
+    #18 = judge + 1
+    judge = #18
+
+_99_label_: 
+    flag = 0
+    bne  ___, 3, _104_label_
+    #19 = judge + 1
+    judge = #19
+
+_104_label_: 
+    bne  ___, 0, _109_label_
+    #20 = judge + 1
+    judge = #20
+    flag = 1
+
+_109_label_: 
+    bne  flag, 0, _113_label_
+    #21 = judge + 1
+    judge = #21
+
+_113_label_: 
+    flag = 0
+    bne  __a__, 4, _118_label_
+    #22 = judge + 1
+    judge = #22
+
+_118_label_: 
+    bne  __a__, 0, _123_label_
+    #23 = judge + 1
+    judge = #23
+    flag = 1
+
+_123_label_: 
+    bne  flag, 0, _127_label_
+    #24 = judge + 1
+    judge = #24
+
+_127_label_: 
+    flag = 0
+    bne  _a_, 5, _132_label_
+    #25 = judge + 1
+    judge = #25
+
+_132_label_: 
+    bne  _a_, 0, _137_label_
+    #26 = judge + 1
+    judge = #26
+    flag = 1
+
+_137_label_: 
+    bne  flag, 0, _141_label_
+    #27 = judge + 1
+    judge = #27
+
+_141_label_: 
+    ret   
+    void  test_global_const()
+
+test_global_const_begin_: 
+    _ = 100
+    bne  _, 100, _149_label_
+    #28 = judge + 1
+    judge = #28
+
+_149_label_: 
+    num[0] = 100
+    num[1] = 101
+    #29 = num[0]
+    bne  #29, 100, _156_label_
+    #30 = judge + 1
+    judge = #30
+
+_156_label_: 
+    #31 = num[1]
+    bne  #31, 101, _161_label_
+    #32 = judge + 1
+    judge = #32
+
+_161_label_: 
+    #33 = judge + 1
+    judge = #33
+    bne  1, 1, _167_label_
+    #34 = judge + 1
+    judge = #34
+
+_167_label_: 
+    bne  97, 97, _171_label_
+    #35 = judge + 1
+    judge = #35
+
+_171_label_: 
+    bne  95, 95, _175_label_
+    #36 = judge + 1
+    judge = #36
+
+_175_label_: 
+    y = 97
+    #37 = y + 97
+    x = #37
+    bne  x, 194, _182_label_
+    #38 = judge + 1
+    judge = #38
+
+_182_label_: 
+    bne  1, 1, _187_label_
+    #39 = judge + 1
+    judge = #39
+    goto  switch_183_end_
+
+_187_label_: 
+
+switch_183_end_: 
+    bne  1, 0, _193_label_
+    #40 = judge + 1
+    judge = #40
+    goto  switch_189_end_
+
+_193_label_: 
+
+switch_189_end_: 
+    x = 0
+
+_196_label_: 
+    bge  x, 2, _203_label_
+    #41 = judge + 1
+    judge = #41
+    #42 = x + 1
+    x = #42
+    goto  _196_label_
+
+_203_label_: 
+    ret   
+    void  test_brackets()
+
+test_brackets_begin_: 
+    #43 = judge + 1
+    judge = #43
+    ret   
+    void  test_compare_operator()
+
+test_compare_operator_begin_: 
+    x = 0
+    y = 1
+    flag = 0
+    bge  x, y, _218_label_
+    #44 = judge + 1
+    judge = #44
+
+_218_label_: 
+    ble  y, x, _222_label_
+    #45 = judge + 1
+    judge = #45
+
+_222_label_: 
+    bne  x, y, _227_label_
+    #46 = judge + 1
+    judge = #46
+    flag = 1
+
+_227_label_: 
+    bne  flag, 0, _231_label_
+    #47 = judge + 1
+    judge = #47
+
+_231_label_: 
+    beq  x, y, _235_label_
+    #48 = judge + 1
+    judge = #48
+
+_235_label_: 
+    x = 0
+
+_237_label_: 
+    bgt  x, 1, _246_label_
+    bgt  x, y, _242_label_
+    #49 = judge + 1
+    judge = #49
+
+_242_label_: 
+    #50 = x + 1
+    x = #50
+    goto  _237_label_
+
+_246_label_: 
+    x = 0
+
+_248_label_: 
+    bgt  x, 1, _257_label_
+    blt  y, x, _253_label_
+    #51 = judge + 1
+    judge = #51
+
+_253_label_: 
+    #52 = x + 1
+    x = #52
+    goto  _248_label_
+
+_257_label_: 
+    ret   
+    void  test_expression()
+
+test_expression_begin_: 
+    a = 0
+    b = 0
+    c = 97
+    d = 98
+    e = 99
+    #53 = judge + 1
+    judge = #53
+    a = a
+    bne  a, 0, _272_label_
+    #54 = judge + 1
+    judge = #54
+
+_272_label_: 
+    #55 = 0 - a
+    a = #55
+    bne  a, 0, _278_label_
+    #56 = judge + 1
+    judge = #56
+
+_278_label_: 
+    a = c
+    bne  a, 97, _283_label_
+    #57 = judge + 1
+    judge = #57
+
+_283_label_: 
+    #58 = 0 - c
+    a = #58
+    #59 = 0 - 97
+    bne  a, #59, _290_label_
+    #60 = judge + 1
+    judge = #60
+
+_290_label_: 
+    a = 3
+    bne  a, 3, _295_label_
+    #61 = judge + 1
+    judge = #61
+
+_295_label_: 
+    a = -1
+    #62 = 0 - 1
+    bne  a, #62, _301_label_
+    #63 = judge + 1
+    judge = #63
+
+_301_label_: 
+    #64 = 0 - -1
+    a = #64
+    bne  a, 1, _307_label_
+    #65 = judge + 1
+    judge = #65
+
+_307_label_: 
+    a = 1
+    bne  a, 1, _312_label_
+    #66 = judge + 1
+    judge = #66
+
+_312_label_: 
+    #67 = 0 - 1
+    a = #67
+    #68 = 0 - 1
+    bne  a, #68, _319_label_
+    #69 = judge + 1
+    judge = #69
+
+_319_label_: 
+    a = 1
+    bne  a, 1, _324_label_
+    #70 = judge + 1
+    judge = #70
+
+_324_label_: 
+    #71 = 3 * -3
+    a = #71
+    #72 = 0 - 9
+    bne  a, #72, _331_label_
+    #73 = judge + 1
+    judge = #73
+
+_331_label_: 
+    b = 5
+    #74 = num[b]
+    #76 = b + 1
+    #75 = num[#76]
+    #77 = #74 + #75
+    #78 = #77 + 3
+    #79 = 0 - #78
+    call  count_to_10
+    jal  count_to_10_begin_
+
+call_341_: 
+    #80 = RET
+    #81 = #79 * #80
+    #82 = #81 / 3
+    #83 = #82 + 97
+    #84 = #83 + 97
+    #85 = 3 * 3
+    #86 = #85 / 4
+    #87 = #84 - #86
+    #88 = letter[0]
+    #89 = #87 + #88
+    a = #89
+    bne  a, 33, _356_label_
+    #90 = judge + 1
+    judge = #90
+
+_356_label_: 
+    a = 1
+    b = 1
+    f = 97
+    g = 113
+    #91 = f * g
+    #92 = e + #91
+    #93 = d + #92
+    #94 = c * #93
+    #95 = b + #94
+    #96 = a * #95
+    a = #96
+    #97 = a / 1024
+    #98 = judge + #97
+    judge = #98
+    ret   
+    void  test_while()
+
+test_while_begin_: 
+    b = 9
+
+_375_label_: 
+    blt  b, 0, _384_label_
+    blt  b, 5, _380_label_
+    #99 = judge + 1
+    judge = #99
+
+_380_label_: 
+    #100 = b - 1
+    b = #100
+    goto  _375_label_
+
+_384_label_: 
+    b = 0
+
+_386_label_: 
+    bgt  b, 2, _404_label_
+    bne  b, 0, _392_label_
+    #101 = judge + 1
+    judge = #101
+    goto  switch_388_end_
+
+_392_label_: 
+    bne  b, 1, _397_label_
+    #102 = judge + 1
+    judge = #102
+    goto  switch_388_end_
+
+_397_label_: 
+    #103 = judge + 1
+    judge = #103
+
+switch_388_end_: 
+    #104 = b + 1
+    b = #104
+    goto  _386_label_
+
+_404_label_: 
+    b = 0
+    a = 0
+
+_407_label_: 
+    bgt  a, 2, _421_label_
+    b = 0
+
+_410_label_: 
+    bgt  b, 2, _417_label_
+    #105 = judge + 1
+    judge = #105
+    #106 = b + 1
+    b = #106
+    goto  _410_label_
+
+_417_label_: 
+    #107 = a + 1
+    a = #107
+    goto  _407_label_
+
+_421_label_: 
+    b = 0
+    a = 11
+
+_424_label_: 
+    bge  b, 10, _436_label_
+    #108 = b * a
+    num[b] = #108
+    #109 = num[b]
+    #110 = judge + #109
+    judge = #110
+    #111 = b + 1
+    b = #111
+    #112 = a + 2
+    a = #112
+    goto  _424_label_
+
+_436_label_: 
+    ret   
+    void  test_if()
+
+test_if_begin_: 
+    a = 0
+    flag = 0
+    #113 = judge + 1
+    judge = #113
+    bne  1, 1, _445_label_
+
+_445_label_: 
+    bne  1, 1, _447_label_
+
+_447_label_: 
+    bne  1, 1, _449_label_
+
+_449_label_: 
+    a = 0
+
+_451_label_: 
+    bgt  a, 1, _468_label_
+    bne  1, 1, _463_label_
+    bne  a, 0, _458_label_
+    #114 = judge + 1
+    judge = #114
+    flag = 1
+
+_458_label_: 
+    bne  flag, 0, _462_label_
+    #115 = judge + 1
+    judge = #115
+
+_462_label_: 
+
+_463_label_: 
+    flag = 0
+    #116 = a + 1
+    a = #116
+    goto  _451_label_
+
+_468_label_: 
+    a = 0
+    bne  1, 1, _479_label_
+
+_471_label_: 
+    bge  a, 2, _478_label_
+    #117 = judge + 1
+    judge = #117
+    #118 = a + 1
+    a = #118
+    goto  _471_label_
+
+_478_label_: 
+
+_479_label_: 
+    a = 0
+
+_481_label_: 
+    bgt  a, 1, _496_label_
+    bne  1, 1, _492_label_
+    bne  a, 0, _488_label_
+    #119 = judge + 1
+    judge = #119
+    goto  switch_484_end_
+
+_488_label_: 
+    #120 = judge + 1
+    judge = #120
+
+switch_484_end_: 
+
+_492_label_: 
+    #121 = a + 1
+    a = #121
+    goto  _481_label_
+
+_496_label_: 
+    flag = 0
+    c = 97
+    bne  c, 97, _502_label_
+    #122 = judge + 1
+    judge = #122
+
+_502_label_: 
+    bne  c, 98, _507_label_
+    #123 = judge + 1
+    judge = #123
+    flag = 1
+
+_507_label_: 
+    bne  flag, 0, _511_label_
+    #124 = judge + 1
+    judge = #124
+
+_511_label_: 
+    ret   
+    void  test_switch()
+
+test_switch_begin_: 
+    flag = 0
+    test = 0
+    a = 0
+    b = 0
+
+_519_label_: 
+    bgt  a, 6, _587_label_
+    bne  a, 0, _544_label_
+    bne  1, 1, _532_label_
+    #125 = judge + 1
+    judge = #125
+    num[0] = 3
+    call  get_sum
+    push  3
+    jal  get_sum_begin_
+
+call_529_: 
+    #126 = RET
+    num[3] = #126
+
+_532_label_: 
+    bne  1, 0, _537_label_
+    #127 = judge + 1
+    judge = #127
+    flag = 1
+
+_537_label_: 
+    bne  flag, 0, _541_label_
+    #128 = judge + 1
+    judge = #128
+
+_541_label_: 
+    test = 1
+    goto  switch_521_end_
+
+_544_label_: 
+    bne  a, 1, _559_label_
+    #129 = judge + 1
+    judge = #129
+    b = 0
+
+_549_label_: 
+    bgt  b, 2, _556_label_
+    #130 = judge + 1
+    judge = #130
+    #131 = b + 1
+    b = #131
+    goto  _549_label_
+
+_556_label_: 
+    test = 1
+    goto  switch_521_end_
+
+_559_label_: 
+    bne  a, 2, _562_label_
+    goto  switch_521_end_
+
+_562_label_: 
+    #132 = judge + 1
+    judge = #132
+    #133 = a / 3
+    bne  #133, 1, _571_label_
+    #134 = judge + 1
+    judge = #134
+    test = 1
+    goto  switch_565_end_
+
+_571_label_: 
+
+switch_565_end_: 
+    bne  test, 0, _576_label_
+    #135 = judge + 1
+    judge = #135
+
+_576_label_: 
+    test = 1
+
+switch_521_end_: 
+    bne  test, 0, _582_label_
+    #136 = judge + 1
+    judge = #136
+
+_582_label_: 
+    test = 0
+    #137 = a + 1
+    a = #137
+    goto  _519_label_
+
+_587_label_: 
+    a = 0
+
+_589_label_: 
+    bge  a, 3, _616_label_
+    bne  a, 0, _593_label_
+    c = 97
+
+_593_label_: 
+    bne  a, 1, _596_label_
+    c = 98
+
+_596_label_: 
+    bne  a, 2, _599_label_
+    c = 99
+
+_599_label_: 
+    bne  c, 97, _604_label_
+    #138 = judge + 1
+    judge = #138
+    goto  switch_600_end_
+
+_604_label_: 
+    bne  c, 98, _609_label_
+    #139 = judge + 1
+    judge = #139
+    goto  switch_600_end_
+
+_609_label_: 
+    #140 = judge + 1
+    judge = #140
+
+switch_600_end_: 
+    #141 = a + 1
+    a = #141
+    goto  _589_label_
+
+_616_label_: 
+    a = 1
+    bne  a, 1, _620_label_
+    goto  switch_618_end_
+
+_620_label_: 
+
+switch_618_end_: 
+    ret   
+    void  test_function()
+
+test_function_begin_: 
+    a = 11
+    c = 97
+    #142 = judge + 1
+    judge = #142
+    call  higher
+    push  c
+    jal  higher_begin_
+
+call_632_: 
+    #143 = RET
+    call  count_to_10
+    jal  count_to_10_begin_
+
+call_636_: 
+    #144 = RET
+    #145 = #143 + #144
+    out  #145
+    call  prt_message
+    jal  prt_message_begin_
+
+call_642_: 
+    #146 = RET
+    ret   
+    void  test_printf()
+
+test_printf_begin_: 
+    x = 1
+    #147 = judge + 1
+    judge = #147
+    out  x
+    x = 5
+    #148 = num[x]
+    #150 = x + 1
+    #149 = num[#150]
+    #151 = #148 + #149
+    #152 = #151 + 3
+    #153 = 0 - #152
+    call  count_to_10
+    jal  count_to_10_begin_
+
+call_660_: 
+    #154 = RET
+    #155 = #153 * #154
+    #156 = #155 / 3
+    #157 = #156 + 97
+    #158 = #157 + 97
+    #159 = 3 * 3
+    #160 = #159 / 4
+    #161 = #158 - #160
+    out  #161
+    ret   
+    void  test_scanf()
+
+test_scanf_begin_: 
+    #162 = judge + 1
+    judge = #162
+    in  x
+    in  m
+    #163 = judge + x
+    #164 = #163 + m
+    judge = #164
+    in  m
+    letter[3] = m
+    #165 = judge + m
+    judge = #165
+    in  x
+    #166 = judge + x
+    judge = #166
+    ret   
+    void  test_varib2()
+
+test_varib2_begin_: 
+    #167 = judge + 1
+    judge = #167
+    bne  _, 1, _695_label_
+    #168 = judge + 1
+    judge = #168
+
+_695_label_: 
+    ret   
+    void  test_varib()
+
+test_varib_begin_: 
+    #169 = judge + 1
+    judge = #169
+    _ = 100
+    bne  _, 100, _705_label_
+    #170 = judge + 1
+    judge = #170
+
+_705_label_: 
+    call  test_varib2
+    jal  test_varib2_begin_
+
+call_708_: 
+    ret   
+    void  test_para4()
+    para  ints  a
+    para  ints  b
+    para  ints  c
+    para  ints  d
+    para  ints  e
+    para  ints  f
+    para  ints  g
+
+test_para4_begin_: 
+    #171 = judge + a
+    #172 = #171 + b
+    #173 = #172 + c
+    #174 = #173 + d
+    #175 = #174 + e
+    #176 = #175 + f
+    #177 = #176 + g
+    judge = #177
+    ret   
+    int  test_para1()
+    para  ints  a
+    para  ints  b
+
+test_para1_begin_: 
+    #178 = judge + 1
+    judge = #178
+    ret  1
+    char  test_para2()
+    para  chars  a
+    para  chars  b
+
+test_para2_begin_: 
+    #179 = judge + 1
+    judge = #179
+    ret  97
+    void  test_para3()
+    para  chars  a
+    para  ints  b
+
+test_para3_begin_: 
+    #180 = judge + 1
+    judge = #180
+    ret   
+    void  test_para()
+
+test_para_begin_: 
+    #181 = judge + 1
+    judge = #181
+    call  test_para1
+    push  1
+    push  2
+    jal  test_para1_begin_
+
+call_757_: 
+    #182 = RET
+    call  test_para2
+    push  97
+    push  98
+    jal  test_para2_begin_
+
+call_763_: 
+    #183 = RET
+    call  test_para3
+    push  97
+    push  1
+    jal  test_para3_begin_
+
+call_769_: 
+    call  test_para4
+    push  1
+    push  2
+    push  3
+    push  4
+    push  5
+    push  6
+    push  7
+    jal  test_para4_begin_
+
+call_779_: 
+    ret   
+    void  main()
+
+main: 
+    judge = 0
+    #184 = judge + 1
+    judge = #184
+    x = 0
+    call  test_global_variable
+    jal  test_global_variable_begin_
+
+call_789_: 
+    call  test_global_const
+    jal  test_global_const_begin_
+
+call_792_: 
+    call  test_brackets
+    jal  test_brackets_begin_
+
+call_795_: 
+    call  test_compare_operator
+    jal  test_compare_operator_begin_
+
+call_798_: 
+    call  test_expression
+    jal  test_expression_begin_
+
+call_801_: 
+    call  test_while
+    jal  test_while_begin_
+
+call_804_: 
+    call  test_if
+    jal  test_if_begin_
+
+call_807_: 
+    call  test_switch
+    jal  test_switch_begin_
+
+call_810_: 
+    call  test_function
+    jal  test_function_begin_
+
+call_813_: 
+    call  test_printf
+    jal  test_printf_begin_
+
+call_816_: 
+    call  test_scanf
+    jal  test_scanf_begin_
+
+call_819_: 
+    call  test_varib
+    jal  test_varib_begin_
+
+call_822_: 
+    call  test_para
+    jal  test_para_begin_
+
+call_825_: 
+    out  all test:, judge
+    ret   

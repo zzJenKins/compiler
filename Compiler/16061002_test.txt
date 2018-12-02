@@ -1,0 +1,143 @@
+const int MAXNUM = 10;
+const char zero_error = 'a', large_error = 'b';
+const char god_error = 'g';
+int pos, global_repeat;
+
+void print_hello(){
+    printf("put in:");
+}
+void foo(){
+    {{{{;}}}}
+    {
+        ;
+    }
+}
+void test_global_repeat(){
+    int global_repeat;
+    global_repeat = 7;
+    printf("global_repeat must be 7:", global_repeat);
+}
+int fact(int t){
+    if(t == 1) return (1);
+    return (t*fact(t-1));
+}
+void test_expression(){
+    int int_test1, int_test2, int_test3, int_test4, int_test5, int_test6;
+    int_test1 = +4 * 'c' - 6/fact(2);
+    int_test2 = -5 + '+' - '9';
+    int_test3 = --5 + 90;
+    int_test4 = -+5;
+    int_test5 = -0 + 9;
+    int_test6 = +0 + +9 + -5;
+
+    {
+    	printf("exp_must be 390:",int_test1);
+    	printf("exp_must be -19:",int_test2);
+    	printf("exp_must be 95:",int_test3);
+    	printf("exp_must be -5:",int_test4);
+    	printf("exp_must be 9:",int_test5);
+    	printf("exp_must be 4:",int_test6);
+    }
+}
+
+int call_add(int a, int b){
+    return (a+b);
+}
+
+
+int mod(int a,int b){
+	int c;
+	c = a / b;
+	b = b * c;
+	if(a == b)
+		return(0);
+	return(a-b);
+}
+
+int gcd(int a,int b){
+	int c;
+	if(a < b){
+		c = a;
+		a = b;
+		b = c;
+	}
+	if(mod(a,b) == 0){
+		return(b);
+	}
+	return(gcd(a,mod(a,b)));
+}
+
+void gcd_test(){
+    int a, b;
+    a = 24;
+    b = 36;
+    printf("gcd_must be 12:",gcd(a,b));
+}
+
+void switch_test(char u){
+    switch(u){
+        case 'a':
+            printf("1==",1);
+        case 'b':
+            printf("2==",2);
+        default:
+            printf("3==",3);
+    }
+    
+        
+}
+int cn_add(int i){
+    int k;
+    int re;
+    k=1;
+    re=0;
+    while(k<i){
+        re=re+k;
+        k=k+1;
+    }
+    return (re);
+}
+void test_array(){
+    int i,result[5]; 
+    i = 0;
+    while(i<4){
+    	result[i]=i;
+    }
+    i=0;
+    while(i<4){
+	printf("result content:",result[i]);
+    }
+}
+
+void main(){
+    const int t1 = 0, t2 = 1;
+    const int t3 = -1;
+    const char c1 = 'a';
+    int num, result[10], i;
+    char _b,_c;
+    int temp;
+    char c2, c3, A4;
+    num=100;
+    _b='b';
+    _c='c';
+	global_repeat = 10;
+    print_hello();
+    i = 1;
+    pos = 1;
+    foo();
+    scanf(num);
+    printf("num jiecheng:",fact(num));
+    printf("num leijia:",cn_add(num));
+    printf("num jiecheng:");
+    printf(fact(num));
+    switch_test('a');
+    switch_test(_b);
+    switch_test(_c);
+    test_global_repeat();
+    test_expression();
+    gcd_test();
+    test_array();
+    return;
+}
+
+

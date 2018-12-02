@@ -1,0 +1,4 @@
+index	eltyp	high	
+0	ints	10	
+1	ints	5	
+2	ints	2	
