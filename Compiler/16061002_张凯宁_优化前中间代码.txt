@@ -1,0 +1,539 @@
+RET: func_return_value
+
+    void  printf_char()
+    para  chars  c
+
+printf_char_begin_: 
+    out  c
+    ret   
+    void  printf_num()
+    para  ints  n
+
+printf_num_begin_: 
+    out  n
+    ret   
+    void  printf_str()
+
+printf_str_begin_: 
+    out  hh! This is a test string!,  
+    ret   
+    void  printf_str_num()
+    para  ints  n
+
+printf_str_num_begin_: 
+    out  this n = , n
+    ret   
+    void  printf_str_char()
+    para  chars  c
+
+printf_str_char_begin_: 
+    out  this c = , c
+    ret   
+    void  print_ten_params()
+    para  ints  num0
+    para  chars  a1
+    para  ints  num2
+    para  chars  a3
+    para  ints  num4
+    para  chars  a5
+    para  chars  a6
+    para  ints  num7
+    para  chars  a8
+    para  ints  num9
+
+print_ten_params_begin_: 
+    out  num[0] = , num0
+    out  num[2] = , num2
+    out  num[4] = , num4
+    call  printf_str_num
+    push  num7
+    jal  printf_str_num_begin_
+
+call_42_: 
+    call  printf_num
+    push  num9
+    jal  printf_num_begin_
+
+call_46_: 
+    out  a[1] = , a1
+    out  a[3], a[5], a[6], a[8]:,  
+    call  printf_str_char
+    push  a3
+    jal  printf_str_char_begin_
+
+call_52_: 
+    call  printf_char
+    push  a5
+    jal  printf_char_begin_
+
+call_56_: 
+    call  printf_char
+    push  a6
+    jal  printf_char_begin_
+
+call_60_: 
+    call  printf_char
+    push  a8
+    jal  printf_char_begin_
+
+call_64_: 
+    out  --end printf params---,  
+    ret   
+    int  fac()
+    para  ints  n
+
+fac_begin_: 
+    bgt  n, 0, _72_label_
+    ret  1
+
+_72_label_: 
+    bne  n, 1, _75_label_
+    ret  1
+
+_75_label_: 
+    ble  n, 1, _88_label_
+    call  fac
+    #0 = n - 1
+    push  #0
+    jal  fac_begin_
+
+call_81_: 
+    #1 = *RET
+    #2 = n * #1
+    #3 = #2 + 1
+    #4 = 10 / 7
+    #5 = #3 - #4
+    ret  #5
+
+_88_label_: 
+    ret   
+    void  all_factorials()
+    para  ints  n
+
+all_factorials_begin_: 
+    i = n
+    sum = 0
+
+_95_label_: 
+    blt  i, 0, _114_label_
+    #6 = sum + i
+    sum = #6
+    out  factorial of , i
+    call  printf_num
+    call  fac
+    push  i
+    jal  fac_begin_
+
+call_104_: 
+    #7 = *RET
+    push  #7
+    jal  printf_num_begin_
+
+call_108_: 
+    #8 = sum + i
+    sum = #8
+    #9 = i - 1
+    i = #9
+    goto  _95_label_
+
+_114_label_: 
+    out  sum of 1~, n
+    call  printf_str_num
+    #10 = sum / 2
+    push  #10
+    jal  printf_str_num_begin_
+
+call_120_: 
+    ret   
+    int  switch_test()
+    para  chars  ch
+
+switch_test_begin_: 
+    expr = 10
+    a = 97
+    b = 98
+    c = 99
+    d = 100
+    e = 101
+    f = 102
+    g = 103
+    h = 104
+    i = 105
+    j = 106
+    k = 107
+    l = 108
+    m = 109
+    bne  m, 109, _153_label_
+    n = 110
+    o = 111
+    p = 112
+    q = 113
+    r = 114
+    s = 115
+    t = 116
+    u = 117
+    v = 118
+    w = 119
+    x = 120
+    y = 121
+    z = 122
+
+_153_label_: 
+    bne  ch, 97, _179_label_
+    call  printf_num
+    #11 = d + e
+    #12 = #11 * f
+    #13 = #12 / g
+    #14 = h * i
+    #15 = #14 * j
+    #16 = #15 * k
+    #17 = l + m
+    #18 = x - y
+    #19 = n * #18
+    #20 = #17 + #19
+    #21 = o / p
+    #22 = #21 * 10
+    #23 = #20 + #22
+    #24 = t - d
+    #25 = #24 + e
+    #26 = f * #25
+    #27 = #23 - #26
+    #28 = #16 / #27
+    #29 = #13 - #28
+    push  #29
+    jal  printf_num_begin_
+
+call_177_: 
+    goto  switch_154_end_
+
+_179_label_: 
+    bne  ch, 98, _194_label_
+    call  printf_char
+    push  b
+    jal  printf_char_begin_
+
+call_184_: 
+    out  fac of , b
+    call  fac
+    #30 = b / 10
+    push  #30
+    jal  fac_begin_
+
+call_190_: 
+    #31 = *RET
+    out  #31
+    goto  switch_154_end_
+
+_194_label_: 
+    out  other character,  
+
+switch_154_end_: 
+    out  char is , ch
+    #32 = 0 - a
+    #33 = #32 + b
+    #34 = #33 + c
+    #35 = #34 + d
+    #36 = #35 + e
+    #37 = #36 + f
+    #38 = #37 + g
+    #39 = #38 + h
+    #40 = #39 + i
+    #41 = #40 + j
+    #42 = #41 + k
+    #43 = #42 + l
+    #44 = #43 + m
+    #45 = o + p
+    #46 = #45 + q
+    #47 = n * #46
+    #48 = #47 / r
+    #49 = #44 + #48
+    #50 = s * t
+    #51 = #50 + u
+    #52 = #51 / v
+    #53 = #49 - #52
+    #54 = w * 10
+    #55 = #53 + #54
+    #56 = x * 97
+    #57 = #55 - #56
+    #58 = y * 122
+    #59 = #57 + #58
+    #60 = z * 95
+    #61 = #59 - #60
+    expr = #61
+    out  expr:,  
+    call  printf_num
+    push  expr
+    jal  printf_num_begin_
+
+call_233_: 
+    ret  1
+    void  main()
+
+main: 
+    #62 = 0 - 0
+    num[0] = #62
+    num[1] = 1
+    #63 = num[1]
+    #64 = #63 + 1
+    #65 = 0 - -2
+    num[#64] = #65
+    #66 = num[2]
+    #67 = 10 / #66
+    num[#67] = -5
+    #68 = 0 - 3
+    num[3] = #68
+    #69 = 0 - 5
+    #70 = -2 * 4
+    #71 = 1 - #70
+    #72 = #69 + #71
+    num[4] = #72
+    num[6] = 6
+    i = 7
+
+_256_label_: 
+    bge  i, 10, _262_label_
+    num[i] = i
+    #73 = i + 1
+    i = #73
+    goto  _256_label_
+
+_262_label_: 
+    call  printf_str
+    jal  printf_str_begin_
+
+call_265_: 
+    out  read\\n i:,  
+    in  i
+    call  printf_num
+    push  i
+    jal  printf_num_begin_
+
+call_271_: 
+    out  read\\n j,k,char:,  
+    in  j
+    in  k
+    in  c
+    call  printf_num
+    push  j
+    jal  printf_num_begin_
+
+call_279_: 
+    call  printf_num
+    push  k
+    jal  printf_num_begin_
+
+call_283_: 
+    call  printf_char
+    push  c
+    jal  printf_char_begin_
+
+call_287_: 
+
+_288_label_: 
+    beq  0, 0, _295_label_
+    call  printf_char
+    push  95
+    jal  printf_char_begin_
+
+call_293_: 
+    goto  _288_label_
+
+_295_label_: 
+    out  k>0?k:, k
+    ble  k, 0, _303_label_
+    call  switch_test
+    push  c
+    jal  switch_test_begin_
+
+call_301_: 
+    #74 = *RET
+
+_303_label_: 
+    beq  k, 100, _306_label_
+    k = 100
+
+_306_label_: 
+    bne  k, 100, _310_label_
+    k = 0
+    a[k] = c
+
+_310_label_: 
+    c = 97
+    bne  c, 97, _315_label_
+    #75 = k + 1
+    a[#75] = c
+
+_315_label_: 
+    #76 = k + 1
+    k = #76
+    beq  c, 97, _320_label_
+    out  A != a,  
+
+_320_label_: 
+    a[k] = 98
+    #77 = k + 1
+    a[#77] = 100
+    c = 99
+    #78 = a[k]
+    blt  c, #78, _328_label_
+    out  ASCII: c >= b,  
+
+_328_label_: 
+    #79 = a[k]
+    ble  c, #79, _332_label_
+    out  ASCII: c > b,  
+
+_332_label_: 
+    #81 = k + 1
+    #80 = a[#81]
+    bgt  c, #80, _337_label_
+    out  ASCII: c <= d,  
+
+_337_label_: 
+    #83 = k + 1
+    #82 = a[#83]
+    bge  c, #82, _342_label_
+    out  ASCII: c < d,  
+
+_342_label_: 
+    #84 = k + 2
+    k = #84
+    a[k] = c
+    #85 = a[k]
+    bne  c, #85, _349_label_
+    out  c == c,  
+
+_349_label_: 
+    #86 = 0 - -3
+    beq  #86, 0, _357_label_
+    call  printf_num
+    #87 = 0 - -3
+    push  #87
+    jal  printf_num_begin_
+
+call_356_: 
+
+_357_label_: 
+    #88 = 0 - 1
+    bne  #88, -1, _364_label_
+    call  printf_str
+    jal  printf_str_begin_
+
+call_362_: 
+    goto  switch_358_end_
+
+_364_label_: 
+
+switch_358_end_: 
+    bne  2, 2, _371_label_
+    call  printf_str
+    jal  printf_str_begin_
+
+call_369_: 
+    goto  switch_366_end_
+
+_371_label_: 
+
+switch_366_end_: 
+    call  all_factorials
+    #89 = i + j
+    push  #89
+    jal  all_factorials_begin_
+
+call_377_: 
+    i = 9
+
+_379_label_: 
+    blt  i, 4, _385_label_
+    a[i] = 95
+    #90 = i - 1
+    i = #90
+    goto  _379_label_
+
+_385_label_: 
+    call  print_ten_params
+    #91 = num[0]
+    push  #91
+    #92 = a[1]
+    push  #92
+    #93 = num[2]
+    push  #93
+    #94 = a[3]
+    push  #94
+    #95 = num[4]
+    push  #95
+    #96 = a[5]
+    push  #96
+    #97 = a[6]
+    push  #97
+    #98 = num[7]
+    push  #98
+    #99 = a[8]
+    push  #99
+    #100 = num[9]
+    push  #100
+    jal  print_ten_params_begin_
+
+call_408_: 
+    i = 0
+    out  printf num[10],  
+
+_411_label_: 
+    bge  i, 10, _421_label_
+    call  printf_num
+    #101 = num[i]
+    push  #101
+    jal  printf_num_begin_
+
+call_417_: 
+    #102 = i + 1
+    i = #102
+    goto  _411_label_
+
+_421_label_: 
+    j = 1
+
+_423_label_: 
+    beq  j, 0, _429_label_
+    out  printf a[10],  
+    #103 = j - 1
+    j = #103
+    goto  _423_label_
+
+_429_label_: 
+    i = 0
+
+_431_label_: 
+    ble  10, i, _441_label_
+    call  printf_char
+    #104 = a[i]
+    push  #104
+    jal  printf_char_begin_
+
+call_437_: 
+    #105 = i + 1
+    i = #105
+    goto  _431_label_
+
+_441_label_: 
+    out  i, j, k, c:,  
+    call  printf_num
+    push  i
+    jal  printf_num_begin_
+
+call_446_: 
+    call  printf_num
+    push  j
+    jal  printf_num_begin_
+
+call_450_: 
+    call  printf_num
+    push  k
+    jal  printf_num_begin_
+
+call_454_: 
+    call  printf_char
+    push  c
+    jal  printf_char_begin_
+
+call_458_: 

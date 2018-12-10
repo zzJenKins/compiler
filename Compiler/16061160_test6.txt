@@ -1,0 +1,12 @@
+int i;
+void main(){
+		
+		i = 2;
+		switch(i){
+			case 1:{
+				printf(1);
+			}
+			case 2: printf(2);
+			case 3: printf(3);
+		}
+}

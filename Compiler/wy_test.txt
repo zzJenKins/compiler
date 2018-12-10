@@ -1,0 +1,195 @@
+const int CONST_1 = 1, CONST_2 = +2, CONST_3 = -3;
+const int TEN = 10;
+const char CONST_A = 'a', CONST_Z = 'z', CONST_ = '_';
+int n, num[10];
+char c, a[10];
+void printf_char(char c){
+	printf(c);
+}
+void printf_num(int n){
+	printf(n);
+}
+void printf_str(){
+	printf("hh! This is a test string!");
+}
+void printf_str_num(int n){
+	printf("this n = ", n);
+}
+void printf_str_char(char c){
+	printf("this c = ", c);
+}
+void print_ten_params(int num0, char a1, int num2, char a3, int num4, char a5, char a6, int num7, char a8, int num9){
+	printf("num[0] = ", num0);
+	printf("num[2] = ", num2);
+	printf("num[4] = ", num4);
+	printf_str_num(num7);
+	printf_num(num9);
+	printf("a[1] = ", a1);
+	printf("a[3], a[5], a[6], a[8]:");
+	printf_str_char(a3);
+	printf_char(a5);
+	printf_char(a6);
+	printf_char(a8);
+	printf("--end printf params---");
+}
+int fac(int n){
+	const int CONST_2 = 1;
+	if(n <= 0) return (1);
+	if(n == 1) return (CONST_2);
+	if(n > CONST_1){
+		return (n*fac(n-1)+CONST_2-(TEN/7));
+	}
+}
+void all_factorials(int n){
+	int i, sum;
+	i = n;
+	sum = 0;
+	while(i >= 0){
+		sum = sum + i;
+		printf("factorial of ",i);
+		printf_num(fac(i));
+		sum = sum + i;
+		i = i-1;
+	}
+	printf("sum of 1~",n);
+	printf_str_num(sum/2);
+}
+int switch_test(char ch){
+	int expr;
+	char a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z;
+	expr = TEN;
+	a = CONST_A;
+	b = 'b';
+	c = 'c';
+	d = 'd';
+	e = 'e';
+	f = 'f';
+	g = 'g';
+	h = 'h';
+	i = 'i';
+	j = 'j';
+	k = 'k';
+	l = 'l';
+	m = 'm';
+	if((m) == ('m')){
+		n = 'n';
+		o = 'o';
+		p = 'p';
+		q = 'q';
+		r = 'r';
+		s = 's';
+		t = 't';
+		u = 'u';
+		v = 'v';
+		w = 'w';
+		x = 'x';
+		y = 'y';
+		z = 'z';
+	}
+	switch(ch){
+		case 'a':{
+			printf_num((d+e)*f/g-h*i*j*k/(l+m+n*(x-y)+(o/p)*TEN-f*(t-d+e)));
+		}
+		case 'b':{
+			printf_char(b);
+			printf("fac of ",(b));
+			printf(fac(b/TEN));
+		}
+		default:
+			printf("other character");
+	}
+	printf("char is ", ch);
+	;
+	{{{{;;;}}}}
+	expr = -a+b+c+d+e+f+g+h+i+j+k+l+m+n*(o+p+q)/r-(s*t+u)/v+w*TEN-x*CONST_A+y*CONST_Z-z*CONST_;
+	printf("expr:");
+	printf_num(expr);
+	return (1);
+}
+void main(){
+	int i, j, k;
+	num[0] = -0;
+	num[CONST_1] = ++1;
+	num[num[1]+1] = --2;
+	num[TEN/num[2]] = +-5;
+	num[3] = -+3;
+	num[4] = -5+(++1--2*4);
+	num[6] = 6;
+	i = 7;
+	while(i < TEN){
+		num[i] = i;
+		i = i + 1;
+	}
+	printf_str();
+	printf("read\n i:");
+	scanf(i);
+	printf_num(i);
+	printf("read\n j,k,char:");
+	scanf(j, k, c);
+	printf_num(j);
+	printf_num(k);
+	printf_char(c);
+	
+	while(0) printf_char(CONST_);
+	printf("k>0?k:",k);
+	if(k > 0) switch_test(c);	
+	if(k != +100) k = 100;
+	if(k == 100){
+		k = 0;
+		a[k] = c;
+	}
+	c = 'a';
+	if((c) == (CONST_A)) a[k+1] = c;
+	k = k+1;	
+	if((c) != ('a')) printf("A != a");
+	a[k] = 'b';
+	a[k+1] = 'd';
+	c = 'c';
+	if((c) >= (a[k])) printf("ASCII: c >= b");
+	if((c) > (a[k])) printf("ASCII: c > b");
+	if((c) <= (a[k+1])) printf("ASCII: c <= d");
+	if((c) < (a[k+CONST_1])) printf("ASCII: c < d");
+	k = k+CONST_2;
+	a[k] = c;
+	if((c) == (a[k])) printf("c == c");
+	if(-CONST_3){	
+		printf_num(-CONST_3);
+	}
+	switch(-CONST_1){
+		case -1:
+			printf_str();
+	}
+	switch(CONST_2){
+		case +2:{
+			printf_str();
+		}
+	}
+	all_factorials(i+j);
+	i = 9;
+	while(i >= 4){
+		a[i] = '_';
+		i = i -1;
+	}
+	print_ten_params(num[0],a[1],num[2],a[3],num[4],a[5],a[6],num[7],a[8],num[9]);
+	i = 0;
+	printf("printf num[10]");
+	while(i < 10){
+		printf_num(num[i]);
+		i = i+1;
+	}
+	j = CONST_1;
+	while(j){
+		printf("printf a[10]");
+		j = j-1;
+	}
+	i = 0;
+	while(10 > i){
+		printf_char(a[i]);
+		i = i + 1;
+	}
+	printf("i, j, k, c:");
+	printf_num(i);
+	printf_num(j);
+	printf_num(k);
+	printf_char(c);
+}

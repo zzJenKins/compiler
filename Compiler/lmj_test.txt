@@ -1,0 +1,143 @@
+const int const_1 = 1,const_2=2;
+const char const_char = 'b';    
+int array_int[100];                        
+int var_1,var_2,var_3;
+char char_1,char_2;
+
+void test_do_while(int x,int y){
+	x=x-1;
+    while (x>y){
+		x=x-1;
+	}
+	if(x==y)
+		printf("do_while is OK");
+	if(x!=y) 
+		printf("ERROR in do_while");
+}
+
+void test_if_else(int x,int y){
+	if(x>y)
+		printf(0);
+	if(x<=y)
+		printf(1);
+}
+
+void test_scanf(int opt){	
+	if(opt==0){
+		printf("please input an interger");
+		scanf(var_3);
+		printf("scanf_int: ",var_3);
+	}
+	if(opt!=0){
+		printf("please input a char");
+		scanf(char_1);
+		printf("scanf_char: ",char_1);
+	}
+}
+
+void test_print(){
+	int t;
+	printf("print_string is OK");
+	printf("ready to print_expression[97]...");
+	printf(-1+const_char);
+	printf("print_[string,expression99]",+1+const_char);
+}
+
+int add(int a,int b){
+	return (a+b);
+}
+
+int squel(int n){
+   if(n==1)
+		return (n);
+	if(n!=1)
+	 return (n*squel(n-1));
+}
+
+void test_void_func(){
+	;
+	return;
+}
+
+void test_switch_case_default(int opt){
+	switch(opt){
+		case 0:{
+			array_int[10]=5;
+			var_2 = -4*array_int[+03*3+1]+-1*'d'-(18/02)*1;
+			if(const_1<const_2){
+				if(var_2==-129)
+					printf("Information and Calculation is OK");					
+				if(var_2!=-129)
+					printf("Error in complex calculation");
+			}
+			if(const_1>=const_2)
+				printf("Error in const_int");			
+		}
+		
+		case 1:{
+			printf("Test_if_else with result[110]");
+			test_if_else(const_1,const_2);
+			test_if_else(const_1,const_1);
+			test_if_else(const_2,const_1);
+		}
+		
+		case 2:{
+			test_scanf(0);
+			test_scanf(1);
+			printf("scanf is OK");
+		}
+	
+		case 3:{
+			test_print();
+			printf("print is OK");
+		}
+	
+		case 4:{
+			test_void_func();
+			printf("void_func is OK");
+		}
+		
+		case 5:{
+			var_1 = add(const_1,const_2);
+			var_2 = squel(const_2+2);
+			if(var_1==3)
+				if(var_2==24)
+					printf("assign_return_func_recursion is OK");
+				if(var_2!=24)
+					printf("ERROR in recursion");
+			if(var_1!=3)
+				printf(" ERROR in assign_return_func");
+				test_do_while(var_2,var_1);	
+		}
+					
+		default:{
+			printf("Neither each case, default branch is OK");
+			return;
+		}		
+	}
+}
+
+void main(){
+	int tmp;
+	int i;
+	i=7;
+	printf("Please input with 0 to 7 in order");
+	printf("Input 0: test_Information and Calculation");
+	printf("Input 1: test_If_Else");
+	printf("Input 2: test_Scanf");
+   	printf("Input 3: test_Printf");
+   	printf("Input 4: test_Void_Func");
+   	printf("Input 5: test_Assign_ReturnFunc_Recursion");
+   	printf("Input anything else, EXIT");
+scanf(tmp);
+		test_switch_case_default(tmp);
+		i=i-1;
+	while(i>0){
+		scanf(tmp);
+		test_switch_case_default(tmp);
+		i=i-1;
+	}
+	printf("test_switch_case_default is OK");
+	printf("----  test finished  ----");
+    return;
+} 
