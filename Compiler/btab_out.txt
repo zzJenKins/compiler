@@ -1,12 +1,4 @@
 index	last	lastpar	kind	paranum	varsize	t_varnum	
-0	68	0	ints	0	22	0	
-1	13	13	notyp	1	0	0	
-2	15	15	notyp	1	0	0	
-3	0	0	notyp	0	0	0	
-4	18	18	notyp	1	0	0	
-5	20	20	notyp	1	0	0	
-6	31	31	notyp	10	0	0	
-7	33	33	ints	1	0	6	
-8	38	36	notyp	1	2	5	
-9	67	40	ints	1	27	51	
-10	71	0	notyp	0	3	44	
+0	3	0	ints	0	0	0	
+1	2	2	notyp	1	0	0	
+2	4	0	notyp	0	1	0	

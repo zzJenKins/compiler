@@ -8,6 +8,7 @@
 #include<set>
 namespace compiler{
     //bool expression_lparent_flag=false;
+        int expression_flag = 0;//表达式类型检查标识
 	int temp_num = 0;	//生成临时变量时使用
 	int return_flag = 0; //在每次进入函数定义的时候设置为0,在return语句中设置为1或2,其中1代表没有返回值,2代表有返回值
 	std::fstream gram_out_file;					//然后在函数定义结束时进行检查,void函数必须为0或1,int函数为2, char函数为3
@@ -352,6 +353,10 @@ namespace compiler{
 				case variable:	//变量返回变量名
 					return id;
 				case array:		//标识符[表达式]
+				    if(expression_flag==1 && is_char ==true){
+                        is_char = false;
+                        expression_flag=0;
+					}
 					y = id;//记录下数组名
 					z = creat_tmp_var();//创建一个新的临时变量名
 					insymbol();
@@ -388,6 +393,10 @@ namespace compiler{
 					}
 					if (tab.tabArray[pos].type == chars) is_char = true;//函数的返回值是一个字符char
 					else is_char = false;
+					if(expression_flag==1 && is_char ==true){
+                        is_char = false;
+                        expression_flag=0;
+					}
 					//进入reUseFuncStatement时,sy == identsy(函数名)
 					z = reUseFuncStatement();//有返回值的函数调用语句的返回值是该函数的返回值
 
@@ -436,6 +445,7 @@ namespace compiler{
 			is_char = true;
 			return int_to_string(inum);//但返回的是字符的值
 		case lparent://开头是(,说明是表达式
+            expression_flag=1;
 			insymbol();
 			if (!find_sy(expression_start_sys, 6)) {
 				error(33, lc);
@@ -460,7 +470,9 @@ namespace compiler{
 		//进入时sy为factor_start_sys[]中的元素
 		std::string z, x, y;
 		//std::cout << is_char << std::endl;
+		//std::cout << "item里面的y前"<<is_char << std::endl;
 		x = factor(is_char);//x为第一个因子
+		//std::cout << "item里面的y后"<<is_char << std::endl;
 		//std::cout << is_char << std::endl;
 	//	expression_lparent_flag=false;
 		if (minus_flag == 1) {		//表达式的第一个项才会遇到
@@ -492,7 +504,10 @@ namespace compiler{
 
 			insymbol();
 		}
-		return x;
+		return x;if(expression_flag==1){
+            is_char = false;
+            expression_flag = 0;
+		}
 		//结束时 sy 为项后面一个单词
 	}
 
@@ -514,8 +529,15 @@ namespace compiler{
 		}
 
 		skip(factor_start_sys, 6);
-		//std::cout << is_char << std::endl;
+		//std::cout << "expression里面的y前"<<is_char << std::endl;
+		//std::cout<<sy<<std::endl;
 		x = item(minus_flag, is_char);//进入项处理
+		//std::cout << "expression里面的y后"<<is_char << std::endl;
+		//std::cout << "expression里面的y后flag"<<expression_flag << std::endl;
+		if(expression_flag==1){
+            is_char = false;
+            expression_flag = 0;
+		}
        // std::cout << is_char << std::endl;
 		//出来时sy为 项后面的第一个单词
 	//	if(expression_lparent_flag){
@@ -537,6 +559,7 @@ namespace compiler{
 			else std::cout << "There is a bug in blockdeal--expression, while" << std::endl;
 			insymbol();
 			y = item(0,no_use);//后面的item都没有-
+			expression_flag = 0;
 		//	expression_lparent_flag=false;
 			//sy为项后面的一个单词,所以不用insymbol()
 			z = creat_tmp_var();//产生临时变量z
@@ -599,14 +622,17 @@ namespace compiler{
 				}
 			insymbol();
 			skip(expression_start_sys, 6);
+			//std::cout <<"y前"<<no_use_y<< std::endl;
 			y = expression(no_use_y);	//进入表达式处理
+			//std::cout <<"y后"<<no_use_y<< std::endl;
+			//std::cout <<no_use_x<<no_use_y<< std::endl;
 
 			if(no_use_x!=no_use_y){
                 error(51,lc);
 			}
 		}
 		else {
-            if(!no_use_x){
+            if(no_use_x){
                 error(51,lc);
             }
 			op = 6; //单独一个表达式, 则在 x == 0的时候跳转
@@ -1069,12 +1095,14 @@ namespace compiler{
 			case minus:
 				if (is_char) error(47, lc);
 				insymbol();
-				if(case_int_list.find(inum)==case_int_list.end()){case_int_list.insert(inum);}
-				else {
-                    error(52, lc);
-                }
+
+
 				if (sy == intcon) {
 					inum = inum * -1;
+					if(case_int_list.find(inum)==case_int_list.end()){case_int_list.insert(inum);}
+					else {
+                    error(52, lc);
+                    }
 					y = int_to_string(inum);
 				}
 				else {
