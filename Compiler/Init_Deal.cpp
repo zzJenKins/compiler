@@ -5,7 +5,7 @@
 #include "Init_Deal.h"
 namespace compiler{
     //初始化索引值和全局变量
-	void initvar(){
+	void Init_Var(){
         lc = 0;
 		ll = 0;
 		cc = 0;
@@ -24,7 +24,7 @@ namespace compiler{
 	}
 
 	//Keymap与Spsmap初始化
-	void setup(){
+	void Set_Up(){
 		//KeyMap初始化
 		KeyMap["int"] = intsy;
 		KeyMap["char"] = charsy;
@@ -90,7 +90,7 @@ namespace compiler{
 		MidOpKind[21] = "jal";	// jal z    跳转并链接,紧跟call指令使用
 
 		//MipsOpKind 初始化
-		MipsOpKind[0] = "add";		//add z, x, y:	z = x + y
+		MipsOpKind[0] = "addu";		//add z, x, y:	z = x + y
 		MipsOpKind[1] = "sub";		//sub z, x, y:  z = x - y
 		MipsOpKind[2] = "mul";		//mul z, x, y:  z = x * y
 		MipsOpKind[3] = "div";		//div z, x, y:  z = x / y
@@ -125,27 +125,22 @@ namespace compiler{
 
 
 	//打开源码文件、结果输出文件和错误输出文件
-	void openFile(){
+	void Open_File(){
 		//用户在控制台输入源文件名称
-		std::cout << "Please input source-code_file_name:" << std::endl;
+		std::cout << "请输入txt源代码文件名:" << std::endl;
         std::string inFileName;
 		std::cin >> inFileName;
 		//打开源文件
 		inFile.open(inFileName, std::fstream::in);
 		//打开出错输出文件
 		erroroutFile.open("errorinfo.txt",std::fstream::out);
-		//输出一行错误启动符
-		erroroutFile << "*******************************" << std::endl;
 		//打开输出词法分析结果的文件
 		word_out_file.open("word_output.txt", std::fstream::out);
-		/*
-			打开文件成功检测，待完成
-		*/
 	}
 
 	void init(){
-        initvar();
-		setup();
-		openFile();
+        Init_Var();
+		Set_Up();
+		Open_File();
     }
 }

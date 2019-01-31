@@ -1,0 +1,51 @@
+Error: 非零整数以0开头,已进行容错,例如0123取123   atline: 75
+Error: 非零整数以0开头,已进行容错,例如0123取123   atline: 79
+Error: 函数定义内部存在错误   atline: 123
+Error: 标识符(变量名 or 常量名 or 函数名)未定义   atline: 123
+Error: 赋值语句格式错误   atline: 125
+Error: 标识符(变量名 or 常量名 or 函数名)未定义   atline: 133
+Error: 表达式格式错误   atline: 133
+Error: 缺少';'   atline: 133
+Error: 函数定义内部存在错误   atline: 136
+Error: 标识符(变量名 or 常量名 or 函数名)未定义   atline: 136
+Error: 赋值语句格式错误   atline: 137
+Error: 标识符(变量名 or 常量名 or 函数名)未定义   atline: 140
+Error: 表达式格式错误   atline: 140
+Error: 缺少';'   atline: 140
+Error: 函数定义内部存在错误   atline: 143
+Error: 标识符(变量名 or 常量名 or 函数名)未定义   atline: 143
+Error: 函数定义内部存在错误   atline: 149
+Error: 标识符(变量名 or 常量名 or 函数名)未定义   atline: 150
+Error: 标识符(变量名 or 常量名 or 函数名)未定义   atline: 151
+Error: 标识符(变量名 or 常量名 or 函数名)未定义   atline: 152
+Error: 标识符(变量名 or 常量名 or 函数名)未定义   atline: 153
+Error: 标识符(变量名 or 常量名 or 函数名)未定义   atline: 155
+Error: 标识符(变量名 or 常量名 or 函数名)未定义   atline: 156
+Error: 标识符(变量名 or 常量名 or 函数名)未定义   atline: 156
+Error: 标识符(变量名 or 常量名 or 函数名)未定义   atline: 160
+Error: 标识符(变量名 or 常量名 or 函数名)未定义   atline: 162
+Error: 标识符(变量名 or 常量名 or 函数名)未定义   atline: 165
+Error: 标识符(变量名 or 常量名 or 函数名)未定义   atline: 165
+Error: 标识符(变量名 or 常量名 or 函数名)未定义   atline: 166
+Error: 标识符(变量名 or 常量名 or 函数名)未定义   atline: 167
+Error: 标识符(变量名 or 常量名 or 函数名)未定义   atline: 168
+Error: 标识符(变量名 or 常量名 or 函数名)未定义   atline: 169
+Error: 标识符(变量名 or 常量名 or 函数名)未定义   atline: 173
+Error: 标识符(变量名 or 常量名 or 函数名)未定义   atline: 174
+Error: 标识符(变量名 or 常量名 or 函数名)未定义   atline: 175
+Error: 标识符(变量名 or 常量名 or 函数名)未定义   atline: 176
+Error: 标识符(变量名 or 常量名 or 函数名)未定义   atline: 176
+Error: 标识符(变量名 or 常量名 or 函数名)未定义   atline: 178
+Error: 表达式格式错误   atline: 178
+Error: 缺少')'   atline: 178
+Error: 标识符(变量名 or 常量名 or 函数名)未定义   atline: 180
+Error: 标识符(变量名 or 常量名 or 函数名)未定义   atline: 187
+Error: 标识符(变量名 or 常量名 or 函数名)未定义   atline: 188
+Error: 标识符(变量名 or 常量名 or 函数名)未定义   atline: 189
+Error: 比较运算符左右类型不一致   atline: 189
+Error: 条件中的表达式不是int型   atline: 189
+Error: 标识符(变量名 or 常量名 or 函数名)未定义   atline: 194
+Error: 标识符(变量名 or 常量名 or 函数名)未定义   atline: 194
+Error: 标识符(变量名 or 常量名 or 函数名)未定义   atline: 195
+Error: 标识符(变量名 or 常量名 or 函数名)未定义   atline: 196
+Error: 文件读完了但文件尾有错误,编译结束   atline: 198

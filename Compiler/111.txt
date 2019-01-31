@@ -1,17 +1,2 @@
-int array[100];
-char str[10];
-int a;
-int add(int x,int y){
-	return (x + y);
-}
-char getch(){
-	const char ch = '_';
-	return (ch);
-}
-void main(){
-	const int i =1,j=2;
-	int k;
-	getch();	
-	k = add(i,j);
-	return ;
-}
+
+	const 

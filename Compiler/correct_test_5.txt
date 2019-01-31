@@ -1,0 +1,21 @@
+int t;
+
+
+int func(){
+    
+	t = t + 1;
+    
+	return (t);
+
+}
+
+
+void main(){
+    
+	t = 0;
+    
+	printf(t + func());
+    
+	return;
+
+}

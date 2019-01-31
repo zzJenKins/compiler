@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1544364653 source:e:\compiler\error_deal.cpp
+1546614774 source:e:\compiler\error_deal.cpp
 	"Error_Deal.h"
 
 1542128101 e:\compiler\error_deal.h
@@ -13,17 +13,17 @@
 	<iostream>
 	<vector>
 
-1543156316 source:e:\compiler\init_deal.cpp
+1546609979 source:e:\compiler\init_deal.cpp
 	<iostream>
 	"Init_Deal.h"
 
 1542177395 e:\compiler\init_deal.h
 	"Var_Info.h"
 
-1544366733 source:e:\compiler\main.cpp
+1546615236 source:e:\compiler\main.cpp
 	"main.h"
 
-1543581861 e:\compiler\main.h
+1546256678 e:\compiler\main.h
 	"Init_Deal.h"
 	"Var_Info.h"
 	"Word_Deal.h"
@@ -31,6 +31,7 @@
 	"Block_Deal.h"
 	"Print_Result.h"
 	"Mid_to_Mips.h"
+	"Optimized_Mid_Code.h"
 
 1542721668 e:\compiler\word_deal.h
 	"Var_Info.h"
@@ -50,35 +51,35 @@
 	"Var_Info.h"
 	"Error_Deal.h"
 
-1542787375 e:\compiler\enter_info.h
+1546596363 e:\compiler\enter_info.h
 	"Var_Info.h"
 	"Error_Deal.h"
 
-1543156316 e:\compiler\print_result.h
+1546595543 e:\compiler\print_result.h
 	"Var_Info.h"
 
 1542722715 source:e:\compiler\var_info.cpp
 	"Var_Info.h"
 
-1543584507 source:e:\compiler\word_deal.cpp
+1546072968 source:e:\compiler\word_deal.cpp
 	"Word_Deal.h"
 	<iostream>
 
-1544366719 source:e:\compiler\block_deal.cpp
+1546615933 source:e:\compiler\block_deal.cpp
 	<iostream>
 	"Block_Deal.h"
 	<set>
 
-1543730204 source:e:\compiler\enter_info.cpp
+1546596574 source:e:\compiler\enter_info.cpp
 	"Enter_Info.h"
 
-1543736631 source:e:\compiler\print_result.cpp
+1546609979 source:e:\compiler\print_result.cpp
 	"Print_Result.h"
 
 1542722244 source:e:\compiler\func_info.cpp
 	"Func_Info.h"
 
-1544363509 source:e:\compiler\mid_to_mips.cpp
+1546597787 source:e:\compiler\mid_to_mips.cpp
 	"Mid_to_Mips.h"
 
 1543751302 e:\compiler\mid_to_mips.h
@@ -87,86 +88,12 @@
 	"Enter_Info.h"
 	"algorithm"
 
-1543730204 source:e:\16061002_1941 (1)\16061002_张凯宁_目标代码执行\compiler\enter_info.cpp
+1546609978 source:e:\compiler\optimized_mid_code.cpp
+	"Optimized_Mid_Code.h"
+
+1546595545 e:\compiler\optimized_mid_code.h
+	"Var_Info.h"
 	"Enter_Info.h"
-
-1542787375 e:\16061002_1941 (1)\16061002_张凯宁_目标代码执行\compiler\enter_info.h
-	"Var_Info.h"
-	"Error_Deal.h"
-
-1543585601 e:\16061002_1941 (1)\16061002_张凯宁_目标代码执行\compiler\var_info.h
-	<map>
-	<string>
-	<cstdint>
-	<fstream>
-	<iostream>
-	<vector>
-
-1542128101 e:\16061002_1941 (1)\16061002_张凯宁_目标代码执行\compiler\error_deal.h
-	"Var_Info.h"
-
-1544364653 source:e:\16061002_1941 (1)\16061002_张凯宁_目标代码执行\compiler\error_deal.cpp
-	"Error_Deal.h"
-
-1542722244 source:e:\16061002_1941 (1)\16061002_张凯宁_目标代码执行\compiler\func_info.cpp
 	"Func_Info.h"
-
-1542722319 e:\16061002_1941 (1)\16061002_张凯宁_目标代码执行\compiler\func_info.h
-	<sstream>
-	"Var_Info.h"
-	"Error_Deal.h"
-
-1543156316 source:e:\16061002_1941 (1)\16061002_张凯宁_目标代码执行\compiler\init_deal.cpp
-	<iostream>
-	"Init_Deal.h"
-
-1542177395 e:\16061002_1941 (1)\16061002_张凯宁_目标代码执行\compiler\init_deal.h
-	"Var_Info.h"
-
-1544366733 source:e:\16061002_1941 (1)\16061002_张凯宁_目标代码执行\compiler\main.cpp
-	"main.h"
-
-1543581861 e:\16061002_1941 (1)\16061002_张凯宁_目标代码执行\compiler\main.h
-	"Init_Deal.h"
-	"Var_Info.h"
-	"Word_Deal.h"
-	"Error_Deal.h"
-	"Block_Deal.h"
-	"Print_Result.h"
-	"Mid_to_Mips.h"
-
-1542721668 e:\16061002_1941 (1)\16061002_张凯宁_目标代码执行\compiler\word_deal.h
-	"Var_Info.h"
-	"Error_Deal.h"
-	"Enter_Info.h"
-	<iomanip>
-
-1542725239 e:\16061002_1941 (1)\16061002_张凯宁_目标代码执行\compiler\block_deal.h
-	"Func_Info.h"
-	"Word_Deal.h"
-	"Enter_Info.h"
-	"Var_Info.h"
-	"Print_Result.h"
-
-1543156316 e:\16061002_1941 (1)\16061002_张凯宁_目标代码执行\compiler\print_result.h
-	"Var_Info.h"
-
-1543751302 e:\16061002_1941 (1)\16061002_张凯宁_目标代码执行\compiler\mid_to_mips.h
-	"Var_Info.h"
-	"Func_Info.h"
-	"Enter_Info.h"
-	"algorithm"
-
-1544363509 source:e:\16061002_1941 (1)\16061002_张凯宁_目标代码执行\compiler\mid_to_mips.cpp
-	"Mid_to_Mips.h"
-
-1543736631 source:e:\16061002_1941 (1)\16061002_张凯宁_目标代码执行\compiler\print_result.cpp
-	"Print_Result.h"
-
-1542722715 source:e:\16061002_1941 (1)\16061002_张凯宁_目标代码执行\compiler\var_info.cpp
-	"Var_Info.h"
-
-1543584507 source:e:\16061002_1941 (1)\16061002_张凯宁_目标代码执行\compiler\word_deal.cpp
-	"Word_Deal.h"
-	<iostream>
+	<algorithm>
 

@@ -1,0 +1,8 @@
+const int const_int =1;
+int a,b,c,x;
+void main(){
+	int tmp;
+tmp=-0;
+tmp=const_int;
+
+}

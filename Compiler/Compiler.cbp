@@ -45,6 +45,7 @@
 		<Unit filename="Init_Deal.h" />
 		<Unit filename="Mid_to_Mips.cpp" />
 		<Unit filename="Mid_to_Mips.h" />
+		<Unit filename="Optimized_Mid_Code.cpp" />
 		<Unit filename="Print_Result.cpp" />
 		<Unit filename="Var_Info.cpp" />
 		<Unit filename="Var_Info.h" />

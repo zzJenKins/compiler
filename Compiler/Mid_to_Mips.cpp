@@ -1,3 +1,5 @@
+
+
 /*
 中间代码转为mips代码
 */
@@ -34,14 +36,14 @@ namespace compiler {
 	};
 
 	struct r_reg {
-		reg regArray[R_REG_NUM];	//临时寄存器 $8-$25
+		reg Regs[R_REG_NUM];	//临时寄存器 $8-$25
 		int s_ptr;		//指向当前空闲位置或者当前该被替换的寄存器(FIFO)
 		int t_ptr;		//指向当前空闲位置或者当前该被替换的寄存器(FIFO)
 		bool s_isfull;		//表示是否满了
 		bool t_isfull;		//表示是否满了
 	};
 
-	r_reg R_Regs;
+	r_reg Reg_Set;
 
 
 	std::map<std::string, var_info> S_Map;	//局部变量信息，在每次jal之前 和 函数返回调用(label isstart = 3)处清空
@@ -51,9 +53,9 @@ namespace compiler {
 	int Call_Func_Ptr = 0;
 	int Str_Id = 0;	//生成string标签使用
     int temp_cnt=0;
-	int FuncVarAllocCount = 0;	//记录当前函数分配了几个全局寄存器, 在每次处理函数开始时清0
+	int Alloc_SCount_In_Func = 0;	//记录当前函数分配了几个全局寄存器, 在每次处理函数开始时清0
 	//生成string标签并返回，将对应信息放到str_info_map中
-	std::string creatStrLabel(std::string str) {
+	std::string Get_Label_For_Str(std::string str) {
 		std::string label;
 		label = "str_" + int_to_string(Str_Id);
 		Str_Id++;
@@ -61,7 +63,7 @@ namespace compiler {
 		return label;
 	}
 	//根据分派到的寄存器号 0-17得到具体的MIPS指令中寄存器的表达方式
-	std::string idToReg(int num) {
+	std::string id_Trans_Regnum(int num) {
 		return "$" + int_to_string(GET_REG_ID(num));
 	}
 
@@ -70,17 +72,17 @@ namespace compiler {
 		函数参数及作用: 寄存器的数组下标
 	*/
 	void pushReg(int reg_pos) {
-		if (R_Regs.regArray[reg_pos].regKind == 1) {	//临时变量
-			enterMipsCode(9, idToReg(reg_pos), DATA_BASE, " ", GET_OFFSET(R_Regs.regArray[reg_pos].offAddr));
-			T_Map[R_Regs.regArray[reg_pos].name].inReg = false;	//不在寄存器中
+		if (Reg_Set.Regs[reg_pos].regKind == 1) {	//临时变量
+			Enter_Mips_List(9, id_Trans_Regnum(reg_pos), DATA_BASE, " ", GET_OFFSET(Reg_Set.Regs[reg_pos].offAddr));
+			T_Map[Reg_Set.Regs[reg_pos].name].inReg = false;	//不在寄存器中
 		}
-		else if (R_Regs.regArray[reg_pos].regKind == 2) {		//局部变量
-			enterMipsCode(9, idToReg(reg_pos), DATA_BASE, " ", GET_OFFSET(R_Regs.regArray[reg_pos].offAddr));
-			S_Map[R_Regs.regArray[reg_pos].name].inReg = false;	//不在寄存器中
+		else if (Reg_Set.Regs[reg_pos].regKind == 2) {		//局部变量
+			Enter_Mips_List(9, id_Trans_Regnum(reg_pos), DATA_BASE, " ", GET_OFFSET(Reg_Set.Regs[reg_pos].offAddr));
+			S_Map[Reg_Set.Regs[reg_pos].name].inReg = false;	//不在寄存器中
 		}
-		else if (R_Regs.regArray[reg_pos].regKind == 3) {		//全局变量
-			enterMipsCode(9, idToReg(reg_pos), GLOBAL_BASE, " ", GET_OFFSET(R_Regs.regArray[reg_pos].offAddr));
-			S_Map[R_Regs.regArray[reg_pos].name].inReg = false;	//不在寄存器中
+		else if (Reg_Set.Regs[reg_pos].regKind == 3) {		//全局变量
+			Enter_Mips_List(9, id_Trans_Regnum(reg_pos), GLOBAL_BASE, " ", GET_OFFSET(Reg_Set.Regs[reg_pos].offAddr));
+			S_Map[Reg_Set.Regs[reg_pos].name].inReg = false;	//不在寄存器中
 		}
 	}
 
@@ -96,125 +98,125 @@ namespace compiler {
 		switch (kind) {
 		case 0://kind = 0， 清空 $8-$25寄存器, 不存入内存;函数声明开始时使用
 			for (int i = 0; i < R_REG_NUM; i++) {
-				if (R_Regs.regArray[i].regKind == 1) {
-					T_Map[R_Regs.regArray[i].name].inReg = false;	//不在寄存器中
+				if (Reg_Set.Regs[i].regKind == 1) {
+					T_Map[Reg_Set.Regs[i].name].inReg = false;	//不在寄存器中
 				}
-				else if ((R_Regs.regArray[i].regKind == 2) || (R_Regs.regArray[i].regKind == 3)) {
-					S_Map[R_Regs.regArray[i].name].inReg = false;	//不在寄存器中
+				else if ((Reg_Set.Regs[i].regKind == 2) || (Reg_Set.Regs[i].regKind == 3)) {
+					S_Map[Reg_Set.Regs[i].name].inReg = false;	//不在寄存器中
 				}
-				R_Regs.regArray[i].isEmpty = true;
-				R_Regs.regArray[i].name = " ";
-				R_Regs.regArray[i].offAddr = -1;
-				R_Regs.regArray[i].regKind = -1;
-				R_Regs.regArray[i].isBusy = false;
+				Reg_Set.Regs[i].isEmpty = true;
+				Reg_Set.Regs[i].name = " ";
+				Reg_Set.Regs[i].offAddr = -1;
+				Reg_Set.Regs[i].regKind = -1;
+				Reg_Set.Regs[i].isBusy = false;
 			}
 			//temp_cnt=0;
-			R_Regs.s_ptr = 8;//0-7 16、17是临时寄存器
-			R_Regs.t_ptr = 0;//8-15是全局寄存器
-			R_Regs.s_isfull = false;
-			R_Regs.t_isfull = false;
+			Reg_Set.s_ptr = 8;//0-7 16、17是临时寄存器
+			Reg_Set.t_ptr = 0;//8-15是全局寄存器
+			Reg_Set.s_isfull = false;
+			Reg_Set.t_isfull = false;
 
 			break;
 		case 1://kind = 1, 清空 $8-$25寄存器, 将相应内容存入内存中;	调用其他函数时在jal之前使用
 			for (int i = 0; i < R_REG_NUM; i++) {
-				if (R_Regs.regArray[i].isEmpty == false) pushReg(i);
-				R_Regs.regArray[i].isEmpty = true;
-				R_Regs.regArray[i].name = " ";
-				R_Regs.regArray[i].offAddr = -1;
-				R_Regs.regArray[i].regKind = -1;
-				R_Regs.regArray[i].isBusy = false;
+				if (Reg_Set.Regs[i].isEmpty == false) pushReg(i);
+				Reg_Set.Regs[i].isEmpty = true;
+				Reg_Set.Regs[i].name = " ";
+				Reg_Set.Regs[i].offAddr = -1;
+				Reg_Set.Regs[i].regKind = -1;
+				Reg_Set.Regs[i].isBusy = false;
 			}
-			R_Regs.t_ptr = 0;
-			R_Regs.s_ptr = 8;
-			FuncVarAllocCount = 0;
-			R_Regs.t_isfull = false;
-			R_Regs.s_isfull = false;
+			Reg_Set.t_ptr = 0;
+			Reg_Set.s_ptr = 8;
+			Alloc_SCount_In_Func = 0;
+			Reg_Set.t_isfull = false;
+			Reg_Set.s_isfull = false;
 			break;
 		case 2:	//kind = 2, 清空 $8-$25寄存器, 将全局变量存入内存,其余不存入;函数返回时使用
-			for (int i = 8; i < 8+FuncVarAllocCount; i++) {
-				if (R_Regs.regArray[i].regKind == 3) {
-					enterMipsCode(9, idToReg(i), GLOBAL_BASE, " ", GET_OFFSET(R_Regs.regArray[i].offAddr));
+			for (int i = 8; i < 8+Alloc_SCount_In_Func; i++) {
+				if (Reg_Set.Regs[i].regKind == 3) {
+					Enter_Mips_List(9, id_Trans_Regnum(i), GLOBAL_BASE, " ", GET_OFFSET(Reg_Set.Regs[i].offAddr));
 				}
 			}
 
 			for (int i = 0; i < 8; i++) {
-				if (R_Regs.regArray[i].regKind == 1) {
-					T_Map[R_Regs.regArray[i].name].inReg = false;	//不在寄存器中
+				if (Reg_Set.Regs[i].regKind == 1) {
+					T_Map[Reg_Set.Regs[i].name].inReg = false;	//不在寄存器中
 				}
-				else if (R_Regs.regArray[i].regKind == 2) {
+				else if (Reg_Set.Regs[i].regKind == 2) {
                     flag==true;
-					S_Map[R_Regs.regArray[i].name].inReg = false;	//不在寄存器中
+					S_Map[Reg_Set.Regs[i].name].inReg = false;	//不在寄存器中
 				}
-				else if (R_Regs.regArray[i].regKind == 3) {
+				else if (Reg_Set.Regs[i].regKind == 3) {
 					pushReg(i);
-					S_Map[R_Regs.regArray[i].name].inReg = false;	//不在寄存器中
+					S_Map[Reg_Set.Regs[i].name].inReg = false;	//不在寄存器中
 				}
-				R_Regs.regArray[i].isEmpty = true;
-				R_Regs.regArray[i].name = " ";
-				R_Regs.regArray[i].offAddr = -1;
-				R_Regs.regArray[i].regKind = -1;
-				R_Regs.regArray[i].isBusy = false;
+				Reg_Set.Regs[i].isEmpty = true;
+				Reg_Set.Regs[i].name = " ";
+				Reg_Set.Regs[i].offAddr = -1;
+				Reg_Set.Regs[i].regKind = -1;
+				Reg_Set.Regs[i].isBusy = false;
 			}
 
-			for (int i = 8+FuncVarAllocCount; i < R_REG_NUM; i++) {
-				if (R_Regs.regArray[i].regKind == 1) {
-					T_Map[R_Regs.regArray[i].name].inReg = false;	//不在寄存器中
+			for (int i = 8+Alloc_SCount_In_Func; i < R_REG_NUM; i++) {
+				if (Reg_Set.Regs[i].regKind == 1) {
+					T_Map[Reg_Set.Regs[i].name].inReg = false;	//不在寄存器中
 				}
-				else if (R_Regs.regArray[i].regKind == 2) {
+				else if (Reg_Set.Regs[i].regKind == 2) {
                     flag==true;
-					S_Map[R_Regs.regArray[i].name].inReg = false;	//不在寄存器中
+					S_Map[Reg_Set.Regs[i].name].inReg = false;	//不在寄存器中
 				}
-				else if (R_Regs.regArray[i].regKind == 3) {
+				else if (Reg_Set.Regs[i].regKind == 3) {
 					pushReg(i);
-					S_Map[R_Regs.regArray[i].name].inReg = false;	//不在寄存器中
+					S_Map[Reg_Set.Regs[i].name].inReg = false;	//不在寄存器中
 				}
-				R_Regs.regArray[i].isEmpty = true;
-				R_Regs.regArray[i].name = " ";
-				R_Regs.regArray[i].offAddr = -1;
-				R_Regs.regArray[i].regKind = -1;
-				R_Regs.regArray[i].isBusy = false;
+				Reg_Set.Regs[i].isEmpty = true;
+				Reg_Set.Regs[i].name = " ";
+				Reg_Set.Regs[i].offAddr = -1;
+				Reg_Set.Regs[i].regKind = -1;
+				Reg_Set.Regs[i].isBusy = false;
 			}
 			//temp_cnt=0;
-			R_Regs.t_ptr = 0;
-			R_Regs.t_isfull = false;
-            R_Regs.s_ptr = 8+FuncVarAllocCount;
-            if(FuncVarAllocCount<8){
-                R_Regs.s_isfull = false;
+			Reg_Set.t_ptr = 0;
+			Reg_Set.t_isfull = false;
+            Reg_Set.s_ptr = 8+Alloc_SCount_In_Func;
+            if(Alloc_SCount_In_Func<8){
+                Reg_Set.s_isfull = false;
             }else{
-            R_Regs.s_isfull = true;
+            Reg_Set.s_isfull = true;
             }
 
 			break;
 		case 3://kind = 3, 清空 临时变量寄存器，保留全局寄存器(func一开始分配的保留, 函数内跨块使用)
 
 			for (int i = 0; i < 8; i++) {
-				if (R_Regs.regArray[i].isEmpty == false) pushReg(i);
-				R_Regs.regArray[i].isEmpty = true;
-				R_Regs.regArray[i].name = " ";
-				R_Regs.regArray[i].offAddr = -1;
-				R_Regs.regArray[i].regKind = -1;
-				R_Regs.regArray[i].isBusy = false;
+				if (Reg_Set.Regs[i].isEmpty == false) pushReg(i);
+				Reg_Set.Regs[i].isEmpty = true;
+				Reg_Set.Regs[i].name = " ";
+				Reg_Set.Regs[i].offAddr = -1;
+				Reg_Set.Regs[i].regKind = -1;
+				Reg_Set.Regs[i].isBusy = false;
 
 			}
 
-			for (int i = 8+FuncVarAllocCount; i < R_REG_NUM; i++) {
-                if (R_Regs.regArray[i].isEmpty == false) pushReg(i);
-				R_Regs.regArray[i].isEmpty = true;
-				R_Regs.regArray[i].name = " ";
-				R_Regs.regArray[i].offAddr = -1;
-				R_Regs.regArray[i].regKind = -1;
-				R_Regs.regArray[i].isBusy = false;
+			for (int i = 8+Alloc_SCount_In_Func; i < R_REG_NUM; i++) {
+                if (Reg_Set.Regs[i].isEmpty == false) pushReg(i);
+				Reg_Set.Regs[i].isEmpty = true;
+				Reg_Set.Regs[i].name = " ";
+				Reg_Set.Regs[i].offAddr = -1;
+				Reg_Set.Regs[i].regKind = -1;
+				Reg_Set.Regs[i].isBusy = false;
 			}
-			//std::cout <<"FuncVarAllocCount="<< FuncVarAllocCount  << std::endl;
+			//std::cout <<"Alloc_SCount_In_Func="<< Alloc_SCount_In_Func  << std::endl;
 			temp_cnt=0;
-			R_Regs.t_ptr = 0;
-			R_Regs.t_isfull = false;
-			R_Regs.s_ptr = 8+FuncVarAllocCount;
-			//R_Regs.s_isfull = false;
-			 if(FuncVarAllocCount<8){
-                R_Regs.s_isfull = false;
+			Reg_Set.t_ptr = 0;
+			Reg_Set.t_isfull = false;
+			Reg_Set.s_ptr = 8+Alloc_SCount_In_Func;
+			//Reg_Set.s_isfull = false;
+			 if(Alloc_SCount_In_Func<8){
+                Reg_Set.s_isfull = false;
             }else{
-            R_Regs.s_isfull = true;
+            Reg_Set.s_isfull = true;
             }
 			break;
 		default:
@@ -247,56 +249,56 @@ namespace compiler {
 		}
 	}
 
-		//申请一个r_reg寄存器, 必要时把该寄存器存储的值存入内存中,返回R_Regs下标
+		//申请一个r_reg寄存器, 必要时把该寄存器存储的值存入内存中,返回Reg_Set下标
 	int allocR_REG(std::string name, int offaddr, int regkind) {
 	    if((regkind==2)||(regkind==3)){//分配全局变量 8-15
             //判断是否冲突
-            if (R_Regs.regArray[R_Regs.s_ptr].isBusy) {
-                if(R_Regs.s_ptr == 15){ R_Regs.s_ptr = 8;}
-                else { R_Regs.s_ptr ++;}
-                if (R_Regs.s_ptr == 8) {
-                    R_Regs.s_ptr = 8+FuncVarAllocCount;
-                    R_Regs.s_isfull = true;		//相当于 R_Regs.ptr + 1 = 18了
+            if (Reg_Set.Regs[Reg_Set.s_ptr].isBusy) {
+                if(Reg_Set.s_ptr == 15){ Reg_Set.s_ptr = 8;}
+                else { Reg_Set.s_ptr ++;}
+                if (Reg_Set.s_ptr == 8) {
+                    Reg_Set.s_ptr = 8+Alloc_SCount_In_Func;
+                    Reg_Set.s_isfull = true;		//相当于 Reg_Set.ptr + 1 = 18了
                 }
             }
-            int r_id = R_Regs.s_ptr;
-            if (R_Regs.s_isfull) {		//将当前寄存器的值放入内存  sw 9
-                pushReg(R_Regs.s_ptr);
+            int r_id = Reg_Set.s_ptr;
+            if (Reg_Set.s_isfull) {		//将当前寄存器的值放入内存  sw 9
+                pushReg(Reg_Set.s_ptr);
             }
-            R_Regs.regArray[r_id].isEmpty = false;
-            R_Regs.regArray[r_id].name = name;
-            R_Regs.regArray[r_id].offAddr = offaddr;
-            R_Regs.regArray[r_id].regKind = regkind;
-            if(R_Regs.s_ptr == 15){ R_Regs.s_ptr = 8;}
-            else { R_Regs.s_ptr ++;}
-            if (R_Regs.s_ptr == 8) {
-                R_Regs.s_ptr = 8+FuncVarAllocCount;
-                R_Regs.s_isfull = true;		//相当于 R_Regs.ptr + 1 = 18了
+            Reg_Set.Regs[r_id].isEmpty = false;
+            Reg_Set.Regs[r_id].name = name;
+            Reg_Set.Regs[r_id].offAddr = offaddr;
+            Reg_Set.Regs[r_id].regKind = regkind;
+            if(Reg_Set.s_ptr == 15){ Reg_Set.s_ptr = 8;}
+            else { Reg_Set.s_ptr ++;}
+            if (Reg_Set.s_ptr == 8) {
+                Reg_Set.s_ptr = 8+Alloc_SCount_In_Func;
+                Reg_Set.s_isfull = true;		//相当于 Reg_Set.ptr + 1 = 18了
             }
             return r_id;
 	    }else if (regkind==1){//分配临时变量 0-7 16、17
 	    //判断是否冲突
-            if (R_Regs.regArray[R_Regs.t_ptr].isBusy) {
-                if(R_Regs.t_ptr==7){R_Regs.t_ptr = 16;}
-                else if(R_Regs.t_ptr==17) {R_Regs.t_ptr = 0;}
-                else { R_Regs.t_ptr ++;}
-                if (R_Regs.t_ptr == 0) {
-                    R_Regs.t_isfull = true;		//相当于 R_Regs.ptr + 1 = 18了
+            if (Reg_Set.Regs[Reg_Set.t_ptr].isBusy) {
+                if(Reg_Set.t_ptr==7){Reg_Set.t_ptr = 16;}
+                else if(Reg_Set.t_ptr==17) {Reg_Set.t_ptr = 0;}
+                else { Reg_Set.t_ptr ++;}
+                if (Reg_Set.t_ptr == 0) {
+                    Reg_Set.t_isfull = true;		//相当于 Reg_Set.ptr + 1 = 18了
                 }
             }
-            int r_id = R_Regs.t_ptr;
-            if (R_Regs.t_isfull) {		//将当前寄存器的值放入内存  sw 9
-                pushReg(R_Regs.t_ptr);
+            int r_id = Reg_Set.t_ptr;
+            if (Reg_Set.t_isfull) {		//将当前寄存器的值放入内存  sw 9
+                pushReg(Reg_Set.t_ptr);
             }
-            R_Regs.regArray[r_id].isEmpty = false;
-            R_Regs.regArray[r_id].name = name;
-            R_Regs.regArray[r_id].offAddr = offaddr;
-            R_Regs.regArray[r_id].regKind = regkind;
-            if(R_Regs.t_ptr==7){R_Regs.t_ptr = 16;}
-            else if(R_Regs.t_ptr==17) {R_Regs.t_ptr = 0;}
-            else { R_Regs.t_ptr ++;}
-            if (R_Regs.t_ptr == 0) {
-                R_Regs.t_isfull = true;		//相当于 R_Regs.ptr + 1 = 18了
+            Reg_Set.Regs[r_id].isEmpty = false;
+            Reg_Set.Regs[r_id].name = name;
+            Reg_Set.Regs[r_id].offAddr = offaddr;
+            Reg_Set.Regs[r_id].regKind = regkind;
+            if(Reg_Set.t_ptr==7){Reg_Set.t_ptr = 16;}
+            else if(Reg_Set.t_ptr==17) {Reg_Set.t_ptr = 0;}
+            else { Reg_Set.t_ptr ++;}
+            if (Reg_Set.t_ptr == 0) {
+                Reg_Set.t_isfull = true;		//相当于 Reg_Set.ptr + 1 = 18了
             }
             return r_id;
 	    }
@@ -305,7 +307,7 @@ namespace compiler {
 
 	void deleteBusy() {
 		for (int i = 0; i < R_REG_NUM; i++) {
-			R_Regs.regArray[i].isBusy = false;
+			Reg_Set.Regs[i].isBusy = false;
 		}
 	}
 
@@ -350,13 +352,13 @@ namespace compiler {
 				//将局部/全局变量从空间中拿出来, lw指令
 				if (tab.tabArray[t_pos].lev == 1) {	//局部
 					r_id = allocR_REG(iter->first, tab.tabArray[t_pos].adr, 2);
-					reg_name = idToReg(r_id);
-					enterMipsCode(8, reg_name, DATA_BASE, " ", GET_OFFSET(tab.tabArray[t_pos].adr));
+					reg_name = id_Trans_Regnum(r_id);
+					Enter_Mips_List(8, reg_name, DATA_BASE, " ", GET_OFFSET(tab.tabArray[t_pos].adr));
 				}
 				else {		//全局
 					r_id = allocR_REG(iter->first, tab.tabArray[t_pos].adr, 3);
-					reg_name = idToReg(r_id);
-					enterMipsCode(8, reg_name, GLOBAL_BASE, " ", GET_OFFSET(tab.tabArray[t_pos].adr));
+					reg_name = id_Trans_Regnum(r_id);
+					Enter_Mips_List(8, reg_name, GLOBAL_BASE, " ", GET_OFFSET(tab.tabArray[t_pos].adr));
 				}
 
 				//新增局部/全局变量在map中的信息
@@ -364,7 +366,7 @@ namespace compiler {
 				tmp_vinfo.r_addr = r_id;
 				tmp_vinfo.stack_addr = tab.tabArray[t_pos].adr;
 				S_Map[iter->first] = tmp_vinfo;
-				FuncVarAllocCount++;
+				Alloc_SCount_In_Func++;
 			}
 		}
 		else {		//大于8个则分配引用次数较多的8个
@@ -377,13 +379,13 @@ namespace compiler {
 				//将局部/全局变量从空间中拿出来, lw指令
 				if (tab.tabArray[t_pos].lev == 1) {	//局部
 					r_id = allocR_REG(s_count_vec[i].first, tab.tabArray[t_pos].adr, 2);
-					reg_name = idToReg(r_id);
-					enterMipsCode(8, reg_name, DATA_BASE, " ", GET_OFFSET(tab.tabArray[t_pos].adr));
+					reg_name = id_Trans_Regnum(r_id);
+					Enter_Mips_List(8, reg_name, DATA_BASE, " ", GET_OFFSET(tab.tabArray[t_pos].adr));
 				}
 				else {		//全局
 					r_id = allocR_REG(s_count_vec[i].first, tab.tabArray[t_pos].adr, 3);
-					reg_name = idToReg(r_id);
-					enterMipsCode(8, reg_name, GLOBAL_BASE, " ", GET_OFFSET(tab.tabArray[t_pos].adr));
+					reg_name = id_Trans_Regnum(r_id);
+					Enter_Mips_List(8, reg_name, GLOBAL_BASE, " ", GET_OFFSET(tab.tabArray[t_pos].adr));
 				}
 
 				//新增局部/全局变量在map中的信息
@@ -391,7 +393,7 @@ namespace compiler {
 				tmp_vinfo.r_addr = r_id;
 				tmp_vinfo.stack_addr = tab.tabArray[t_pos].adr;
 				S_Map[s_count_vec[i].first] = tmp_vinfo;
-				FuncVarAllocCount++;
+				Alloc_SCount_In_Func++;
 
 			}
 
@@ -404,7 +406,7 @@ namespace compiler {
 		int i = 0;
 		S_Count_Map.clear();
 		//std::cout <<MidCodeOptT.midcodeArray[func_start].y << std::endl;
-		FuncVarAllocCount=0;
+		Alloc_SCount_In_Func=0;
         //扫描该函数所在块
 		for (i = func_start + 1; i < MidCodeOptT.mdc; i++) {
 			if (MidCodeOptT.midcodeArray[i].op == 14) break;
@@ -444,37 +446,37 @@ namespace compiler {
     void returnReg(int regkind){
         if(regkind==1){//临时 0-7  16 17
            // std::cout << "归还临时变量"<< std::endl;
-            if(R_Regs.t_ptr==16){R_Regs.t_ptr=7;}
-            else if(R_Regs.t_ptr==0) {R_Regs.t_ptr=17;}
-            else {R_Regs.t_ptr--;}
-          /*  if (R_Regs.regArray[R_Regs.t_ptr].regKind == 1) {
-					T_Map[R_Regs.regArray[R_Regs.t_ptr].name].inReg = false;	//不在寄存器中
+            if(Reg_Set.t_ptr==16){Reg_Set.t_ptr=7;}
+            else if(Reg_Set.t_ptr==0) {Reg_Set.t_ptr=17;}
+            else {Reg_Set.t_ptr--;}
+          /*  if (Reg_Set.Regs[Reg_Set.t_ptr].regKind == 1) {
+					T_Map[Reg_Set.Regs[Reg_Set.t_ptr].name].inReg = false;	//不在寄存器中
 				}
-				else if ((R_Regs.regArray[R_Regs.t_ptr].regKind == 2) || (R_Regs.regArray[R_Regs.t_ptr].regKind == 3)) {
-					S_Map[R_Regs.regArray[R_Regs.t_ptr].name].inReg = false;	//不在寄存器中
+				else if ((Reg_Set.Regs[Reg_Set.t_ptr].regKind == 2) || (Reg_Set.Regs[Reg_Set.t_ptr].regKind == 3)) {
+					S_Map[Reg_Set.Regs[Reg_Set.t_ptr].name].inReg = false;	//不在寄存器中
 				}
-				R_Regs.regArray[R_Regs.t_ptr].isEmpty = true;
-				R_Regs.regArray[R_Regs.t_ptr].name = " ";
-				R_Regs.regArray[R_Regs.t_ptr].offAddr = -1;
-				R_Regs.regArray[R_Regs.t_ptr].regKind = -1;
-				R_Regs.regArray[R_Regs.t_ptr].isBusy = false;*/
+				Reg_Set.Regs[Reg_Set.t_ptr].isEmpty = true;
+				Reg_Set.Regs[Reg_Set.t_ptr].name = " ";
+				Reg_Set.Regs[Reg_Set.t_ptr].offAddr = -1;
+				Reg_Set.Regs[Reg_Set.t_ptr].regKind = -1;
+				Reg_Set.Regs[Reg_Set.t_ptr].isBusy = false;*/
 
         }
         else if((regkind==2)||(regkind==3)){//全局 8-15
            // std::cout << "归还全局变量"<< std::endl;
-             if(R_Regs.s_ptr==8){R_Regs.s_ptr=15;}
-            else{R_Regs.s_ptr--;}
-          /*  if (R_Regs.regArray[R_Regs.s_ptr].regKind == 1) {
-					T_Map[R_Regs.regArray[R_Regs.s_ptr].name].inReg = false;	//不在寄存器中
+             if(Reg_Set.s_ptr==8){Reg_Set.s_ptr=15;}
+            else{Reg_Set.s_ptr--;}
+          /*  if (Reg_Set.Regs[Reg_Set.s_ptr].regKind == 1) {
+					T_Map[Reg_Set.Regs[Reg_Set.s_ptr].name].inReg = false;	//不在寄存器中
 				}
-				else if ((R_Regs.regArray[R_Regs.s_ptr].regKind == 2) || (R_Regs.regArray[R_Regs.s_ptr].regKind == 3)) {
-					S_Map[R_Regs.regArray[R_Regs.s_ptr].name].inReg = false;	//不在寄存器中
+				else if ((Reg_Set.Regs[Reg_Set.s_ptr].regKind == 2) || (Reg_Set.Regs[Reg_Set.s_ptr].regKind == 3)) {
+					S_Map[Reg_Set.Regs[Reg_Set.s_ptr].name].inReg = false;	//不在寄存器中
 				}
-				R_Regs.regArray[R_Regs.s_ptr].isEmpty = true;
-				R_Regs.regArray[R_Regs.s_ptr].name = " ";
-				R_Regs.regArray[R_Regs.s_ptr].offAddr = -1;
-				R_Regs.regArray[R_Regs.s_ptr].regKind = -1;
-				R_Regs.regArray[R_Regs.s_ptr].isBusy = false;*/
+				Reg_Set.Regs[Reg_Set.s_ptr].isEmpty = true;
+				Reg_Set.Regs[Reg_Set.s_ptr].name = " ";
+				Reg_Set.Regs[Reg_Set.s_ptr].offAddr = -1;
+				Reg_Set.Regs[Reg_Set.s_ptr].regKind = -1;
+				Reg_Set.Regs[Reg_Set.s_ptr].isBusy = false;*/
 
         }
     }
@@ -501,22 +503,22 @@ namespace compiler {
 		else if (s[0] == '#') {			//临时变量
 			if (findInMap(s, 0, tmp_vinfo)) {		//查找T_Map表
 				if (tmp_vinfo.inReg) {		//在寄存器中
-					reg_name = idToReg(tmp_vinfo.r_addr);
-					R_Regs.regArray[tmp_vinfo.r_addr].isBusy = true;
+					reg_name = id_Trans_Regnum(tmp_vinfo.r_addr);
+					Reg_Set.Regs[tmp_vinfo.r_addr].isBusy = true;
 				}
 				else {							//在内存中
-                    std::cout<<tmp_vinfo.stack_addr<<std::endl;
+                  //  std::cout<<tmp_vinfo.stack_addr<<std::endl;
 					int r_id = allocR_REG(s, tmp_vinfo.stack_addr, 1);
-					reg_name = idToReg(r_id);
+					reg_name = id_Trans_Regnum(r_id);
 
-					R_Regs.regArray[r_id].isBusy = true;
+					Reg_Set.Regs[r_id].isBusy = true;
 
 					//将临时变量从栈空间中拿出来, lw指令
 					if (tmp_vinfo.isTFirst) {
 						T_Map[s].isTFirst = false;
 					}
 					else {
-						enterMipsCode(8, reg_name, DATA_BASE, " ", GET_OFFSET(tmp_vinfo.stack_addr));
+						Enter_Mips_List(8, reg_name, DATA_BASE, " ", GET_OFFSET(tmp_vinfo.stack_addr));
 					}
 					//更改临时变量在map中的信息
 					T_Map[s].inReg = true;
@@ -530,22 +532,22 @@ namespace compiler {
 		}
 		else {								//局部变量/全局变量
             if(s=="i_1"){
-                std::cout <<"i_1进入"<<std::endl;
+                //std::cout <<"i_1进入"<<std::endl;
             }
 			if (findInMap(s, 1, tmp_vinfo)) {
                     if(s=="i_1"){
-                std::cout <<"在表中"<<std::endl;
+               // std::cout <<"在表中"<<std::endl;
             }
 				if (tmp_vinfo.inReg) {		//在寄存器中
 				     if(s=="i_1"){
-                std::cout <<"在寄存器中"<<std::endl;
+               // std::cout <<"在寄存器中"<<std::endl;
             }
-					reg_name = idToReg(tmp_vinfo.r_addr);
-					R_Regs.regArray[tmp_vinfo.r_addr].isBusy = true;
+					reg_name = id_Trans_Regnum(tmp_vinfo.r_addr);
+					Reg_Set.Regs[tmp_vinfo.r_addr].isBusy = true;
 				}
 				else {							//在内存中
 				    if(s=="i_1"){
-                std::cout <<"在内存中"<<std::endl;
+                //std::cout <<"在内存中"<<std::endl;
             }
 					int t_pos;	//局部变量在符号表中的位置
 					t_pos = find_in_tab(s);
@@ -560,16 +562,16 @@ namespace compiler {
 
 						r_id = allocR_REG(s, tmp_vinfo.stack_addr, 2);
 						//if(s=="b"){std::cout <<r_id << std::endl;}
-						reg_name = idToReg(r_id);
+						reg_name = id_Trans_Regnum(r_id);
 						// if(s=="b"){std::cout <<reg_name << std::endl;}
-						R_Regs.regArray[r_id].isBusy = true;
-						enterMipsCode(8, reg_name, DATA_BASE, " ", GET_OFFSET(tab.tabArray[t_pos].adr));
+						Reg_Set.Regs[r_id].isBusy = true;
+						Enter_Mips_List(8, reg_name, DATA_BASE, " ", GET_OFFSET(tab.tabArray[t_pos].adr));
 					}
 					else {		//全局
 						r_id = allocR_REG(s, tmp_vinfo.stack_addr, 3);
-						reg_name = idToReg(r_id);
-						R_Regs.regArray[r_id].isBusy = true;
-						enterMipsCode(8, reg_name, GLOBAL_BASE, " ", GET_OFFSET(tab.tabArray[t_pos].adr));
+						reg_name = id_Trans_Regnum(r_id);
+						Reg_Set.Regs[r_id].isBusy = true;
+						Enter_Mips_List(8, reg_name, GLOBAL_BASE, " ", GET_OFFSET(tab.tabArray[t_pos].adr));
 					}
 
 					//更改局部/全局变量在map中的信息
@@ -579,7 +581,7 @@ namespace compiler {
 			}
 			else {	//第一次出现该局部变量/全局变量
                     if(s=="i_1"){
-                std::cout <<"第一次出现i_1"<<std::endl;
+              //  std::cout <<"第一次出现i_1"<<std::endl;
             }
 				int t_pos;	//局部变量在符号表中的位置
 				t_pos = find_in_tab(s);
@@ -594,21 +596,21 @@ namespace compiler {
 				//将局部/全局变量从空间中拿出来, lw指令
 				if (tab.tabArray[t_pos].lev == 1) {	//局部
 				    if(s=="i_1"){
-                std::cout <<"i_1是局部变量"<<std::endl;
+               // std::cout <<"i_1是局部变量"<<std::endl;
             }
 					r_id = allocR_REG(s, tab.tabArray[t_pos].adr, 2);
-					reg_name = idToReg(r_id);
-					if(s=="b"){std::cout <<r_id << std::endl;}
+					reg_name = id_Trans_Regnum(r_id);
+				//	if(s=="b"){std::cout <<r_id << std::endl;}
 
-						 if(s=="b"){std::cout <<reg_name << std::endl;}
-					R_Regs.regArray[r_id].isBusy = true;
-					enterMipsCode(8, reg_name, DATA_BASE, " ", GET_OFFSET(tab.tabArray[t_pos].adr));
+				//		 if(s=="b"){std::cout <<reg_name << std::endl;}
+					Reg_Set.Regs[r_id].isBusy = true;
+					Enter_Mips_List(8, reg_name, DATA_BASE, " ", GET_OFFSET(tab.tabArray[t_pos].adr));
 				}
 				else {		//全局
 					r_id = allocR_REG(s, tab.tabArray[t_pos].adr, 3);
-					reg_name = idToReg(r_id);
-					R_Regs.regArray[r_id].isBusy = true;
-					enterMipsCode(8, reg_name, GLOBAL_BASE, " ", GET_OFFSET(tab.tabArray[t_pos].adr));
+					reg_name = id_Trans_Regnum(r_id);
+					Reg_Set.Regs[r_id].isBusy = true;
+					Enter_Mips_List(8, reg_name, GLOBAL_BASE, " ", GET_OFFSET(tab.tabArray[t_pos].adr));
 				}
 
 				//新增局部/全局变量在map中的信息
@@ -617,7 +619,7 @@ namespace compiler {
 				tmp_vinfo.stack_addr = tab.tabArray[t_pos].adr;
 				S_Map[s] = tmp_vinfo;
 				if(s=="i_1"){
-                std::cout <<"tmp_vinfo.inreg="<<tmp_vinfo.inReg<<std::endl;
+              //  std::cout <<"tmp_vinfo.inreg="<<tmp_vinfo.inReg<<std::endl;
             }
 			}
 			return 1;
@@ -641,66 +643,66 @@ namespace compiler {
 		case 0:	//+
 			if ((x_flag == 2) && (y_flag == 2)) {		//直接计算出结果
 				result = x_num + y_num;
-				enterMipsCode(19, z, " ", " ", result);					//加载li指令
+				Enter_Mips_List(19, z, " ", " ", result);					//加载li指令
 			}
 			else if ((x_flag == 2) && (y_flag != 2)) {
-				enterMipsCode(4, z, y, " ", x_num);
+				Enter_Mips_List(4, z, y, " ", x_num);
 			}
 			else if ((y_flag == 2) && (x_flag != 2)) {
-				enterMipsCode(4, z, x, " ", y_num);
+				Enter_Mips_List(4, z, x, " ", y_num);
 			}
 			else {
-				enterMipsCode(0, z, x, y, 0);
+				Enter_Mips_List(0, z, x, y, 0);
 			}
 			break;
 		case 1:	//-
 			if ((x_flag == 2) && (y_flag == 2)) {		//直接计算出结果
 				result = x_num - y_num;
-				enterMipsCode(19, z, " ", " ", result);					//加载li指令
+				Enter_Mips_List(19, z, " ", " ", result);					//加载li指令
 			}
 			else if ((x_flag == 2) && (y_flag != 2)) {			// z = x - y   x为数字
 			  //  temp_cnt--;
 				r_id = allocR_REG(" ", -1, 1);
-				x = idToReg(r_id);
-				enterMipsCode(19, x, " ", " ", x_num);
-				enterMipsCode(1, z, x, y, 0);
+				x = id_Trans_Regnum(r_id);
+				Enter_Mips_List(19, x, " ", " ", x_num);
+				Enter_Mips_List(1, z, x, y, 0);
 
 				//释放该寄存器
 				returnReg(1);
 			}
 			else if ((y_flag == 2) && (x_flag != 2)) {
-				enterMipsCode(5, z, x, " ", y_num);				//z = x - y   y 为数字
+				Enter_Mips_List(5, z, x, " ", y_num);				//z = x - y   y 为数字
 			}
 			else {
-				enterMipsCode(1, z, x, y, 0);
+				Enter_Mips_List(1, z, x, y, 0);
 			}
 			break;
 		case 2:	//*
 			if ((x_flag == 2) && (y_flag == 2)) {		//直接计算出结果
 				result = x_num * y_num;
-				enterMipsCode(19, z, " ", " ", result);					//加载li指令
+				Enter_Mips_List(19, z, " ", " ", result);					//加载li指令
 			}
 			else if ((x_flag == 2) && (y_flag != 2)) {
-				enterMipsCode(6, z, y, " ", x_num);
+				Enter_Mips_List(6, z, y, " ", x_num);
 			}
 			else if ((y_flag == 2) && (x_flag != 2)) {
-				enterMipsCode(6, z, x, " ", y_num);
+				Enter_Mips_List(6, z, x, " ", y_num);
 			}
 			else {
-				enterMipsCode(2, z, x, y, 0);
+				Enter_Mips_List(2, z, x, y, 0);
 			}
 			break;
 		case 3:	// /
 			if ((x_flag == 2) && (y_flag == 2)) {		//直接计算出结果
 				result = x_num / y_num;
-				enterMipsCode(19, z, " ", " ", result);					//加载li指令
+				Enter_Mips_List(19, z, " ", " ", result);					//加载li指令
 			}
 			else if ((x_flag == 2) && (y_flag != 2)) {			// z = x / y   x为数字
 			   // temp_cnt--;
 				r_id = allocR_REG(" ", -1, 1);
-				x = idToReg(r_id);
-				enterMipsCode(19, x, " ", " ", x_num);
-				enterMipsCode(3, z, x, y, 0);
+				x = id_Trans_Regnum(r_id);
+				Enter_Mips_List(19, x, " ", " ", x_num);
+				Enter_Mips_List(3, z, x, y, 0);
 				//释放该寄存器
 				returnReg(1);
 			}
@@ -708,10 +710,10 @@ namespace compiler {
 				if (y_num == 0) {	//除数为0
 					y_num = 1;
 				}
-				enterMipsCode(7, z, x, " ", y_num);				//z = x / y   y 为数字
+				Enter_Mips_List(7, z, x, " ", y_num);				//z = x / y   y 为数字
 			}
 			else {
-				enterMipsCode(3, z, x, y, 0);
+				Enter_Mips_List(3, z, x, y, 0);
 			}
 			break;
 		default:
@@ -734,11 +736,11 @@ namespace compiler {
 				y_flag = dealOperand(cur_mid.y, y, y_num);
 				//if (y_flag == 0) std::cout << "There is a bug in midtomipsdeal--assignDeal, switch-4-y_flag can't be 0. mid_pos:" << mid_pos << std::endl;
 				if (y_flag == 1) {
-					enterMipsCode(20, z, y, " ", 0);	//move
+					Enter_Mips_List(20, z, y, " ", 0);	//move
 				}
 				else {
 					//std::cout << mid_pos << " " << cur_mid.z << " " << cur_mid.y << std::endl;
-					enterMipsCode(19, z, " ", " ", y_num);
+					Enter_Mips_List(19, z, " ", " ", y_num);
 				}
 			}
 			else {		// z = y[x]的赋值		lw
@@ -752,38 +754,38 @@ namespace compiler {
 
 					y_num = y_num + x_num;
 					if (tab.tabArray[t_pos].lev == 1) {		//局部
-						enterMipsCode(8, z, DATA_BASE, " ", GET_OFFSET(y_num));					//lw
+						Enter_Mips_List(8, z, DATA_BASE, " ", GET_OFFSET(y_num));					//lw
 					}
 					else {									//全局
-						enterMipsCode(8, z, GLOBAL_BASE, " ", GET_OFFSET(y_num));					//lw
+						Enter_Mips_List(8, z, GLOBAL_BASE, " ", GET_OFFSET(y_num));					//lw
 					}
 				}
 				else {	//x 为变量名     $fp/$gp + GET_OFFSET(y_num + $x)
                    //     temp_cnt--;
 					r_id = allocR_REG(" ", -1, 1);
 
-					t = idToReg(r_id);
+					t = id_Trans_Regnum(r_id);
 
-					std::cout <<t << std::endl;
-					std::cout <<R_Regs.regArray[r_id].isEmpty << std::endl;
-					enterMipsCode(4, t, x, " ", y_num);
-					enterMipsCode(6, t, t, " ", -4);		// -4 * (y_num + $x)
+					//std::cout <<t << std::endl;
+					//std::cout <<Reg_Set.Regs[r_id].isEmpty << std::endl;
+					Enter_Mips_List(4, t, x, " ", y_num);
+					Enter_Mips_List(6, t, t, " ", -4);		// -4 * (y_num + $x)
 					if (tab.tabArray[t_pos].lev == 1) {		//局部
-						enterMipsCode(0, t, t, DATA_BASE, 0);
-						enterMipsCode(8, z, t, " ", 0);
+						Enter_Mips_List(0, t, t, DATA_BASE, 0);
+						Enter_Mips_List(8, z, t, " ", 0);
 					}
 					else {			//全局
-						enterMipsCode(0, t, t, GLOBAL_BASE, 0);
-						enterMipsCode(8, z, t, " ", 0);
+						Enter_Mips_List(0, t, t, GLOBAL_BASE, 0);
+						Enter_Mips_List(8, z, t, " ", 0);
 					}
 					//释放该寄存器
 					if(r_id==6){
-                        std::cout <<R_Regs.regArray[r_id].isEmpty << std::endl;
+                       // std::cout <<Reg_Set.Regs[r_id].isEmpty << std::endl;
 					}
 					returnReg(1);
 					//释放该寄存器
-					if(R_Regs.t_ptr==6){
-                        std::cout <<R_Regs.regArray[R_Regs.t_ptr].isEmpty << std::endl;
+					if(Reg_Set.t_ptr==6){
+                        //std::cout <<Reg_Set.Regs[Reg_Set.t_ptr].isEmpty << std::endl;
 					}
 				}
 			}
@@ -799,17 +801,17 @@ namespace compiler {
 			y_flag = dealOperand(cur_mid.y, y, y_num);
 			//if (y_flag == 0) std::cout << "There is a bug in midtomipsdeal--assignDeal, switch-20-y_flag can't be 0. mid_pos" << mid_pos << std::endl;
 			if (y_flag == 2) {	//数字
-			   // std::cout << R_Regs.t_ptr << std::endl;
+			   // std::cout << Reg_Set.t_ptr << std::endl;
 			 //  temp_cnt--;
 				r_id = allocR_REG(" ", -1, 1);
 
                // std::cout << r_id << std::endl;
-				y = idToReg(r_id);
+				y = id_Trans_Regnum(r_id);
 
-				enterMipsCode(19, y, " ", " ", y_num);		//li
+				Enter_Mips_List(19, y, " ", " ", y_num);		//li
 															//释放该寄存器
-															//if (R_Regs.ptr == 0) R_Regs.ptr = 17;
-															//else R_Regs.ptr--;
+															//if (Reg_Set.ptr == 0) Reg_Set.ptr = 17;
+															//else Reg_Set.ptr--;
 			}
 
 			// 到此y 为要存储到栈空间的寄存器 不能被释放！！！要不之后x为变量时候会直接申请导致冲掉之前的y
@@ -818,26 +820,26 @@ namespace compiler {
 				z_num = z_num + x_num;
 
 				if (tab.tabArray[t_pos].lev == 1) {	//局部
-					enterMipsCode(9, y, DATA_BASE, " ", GET_OFFSET(z_num));
+					Enter_Mips_List(9, y, DATA_BASE, " ", GET_OFFSET(z_num));
 				}
 				else {		//全局
-					enterMipsCode(9, y, GLOBAL_BASE, " ", GET_OFFSET(z_num));
+					Enter_Mips_List(9, y, GLOBAL_BASE, " ", GET_OFFSET(z_num));
 				}
 				returnReg(1);
 			}
 			else {		// 此时x为变量
                    // temp_cnt--;
 				r_id = allocR_REG(" ", -1, 1);
-				t = idToReg(r_id);
-				enterMipsCode(4, t, x, " ", z_num);
-				enterMipsCode(6, t, t, " ", -4);		// -4 * (z_num + $x)
+				t = id_Trans_Regnum(r_id);
+				Enter_Mips_List(4, t, x, " ", z_num);
+				Enter_Mips_List(6, t, t, " ", -4);		// -4 * (z_num + $x)
 				if (tab.tabArray[t_pos].lev == 1) {		//局部
-					enterMipsCode(0, t, t, DATA_BASE, 0);
-					enterMipsCode(9, y, t, " ", 0);
+					Enter_Mips_List(0, t, t, DATA_BASE, 0);
+					Enter_Mips_List(9, y, t, " ", 0);
 				}
 				else {			//全局
-					enterMipsCode(0, t, t, GLOBAL_BASE, 0);
-					enterMipsCode(9, y, t, " ", 0);
+					Enter_Mips_List(0, t, t, GLOBAL_BASE, 0);
+					Enter_Mips_List(9, y, t, " ", 0);
 				}
 				//释放该寄存器 ?????
 				returnReg(1);
@@ -858,23 +860,23 @@ namespace compiler {
 		switch (cur_mid.op) {
 		case 5:	//goto
 			clearRegs(3);
-			enterMipsCode(16, cur_mid.z, " ", " ", 0);		//j label
+			Enter_Mips_List(16, cur_mid.z, " ", " ", 0);		//j label
 			break;
 		case 12: //ret
 			if (cur_mid.y != " ") {		//处理返回值
 				y_flag = dealOperand(cur_mid.y, y, y_num);
 				//if (y_flag == 0) std::cout << "There is a bug in midtomipsdeal--noConJumpDeal, switch-12." << std::endl;
 				if (y_flag == 1) {
-					enterMipsCode(20, RE_VALUE_REG, y, " ", 0);
+					Enter_Mips_List(20, RE_VALUE_REG, y, " ", 0);
 				}
 				else {
-					enterMipsCode(19, RE_VALUE_REG, " ", " ", y_num);
+					Enter_Mips_List(19, RE_VALUE_REG, " ", " ", y_num);
 				}
 			}
 			clearRegs(2);	//处理寄存器
 			//S_Map.clear();
 			//clearRegs(3);
-			enterMipsCode(17, RE_LABEL_REG, " ", " ", 0);
+			Enter_Mips_List(17, RE_LABEL_REG, " ", " ", 0);
 			break;
 		case 21: //jal
 			clearRegs(1);		//函数调用时跳转之前将现场保留, 将寄存器清空
@@ -887,11 +889,11 @@ namespace compiler {
 			offset_1 = 3 + btab.btabArray[b_pos].paranum;	//fp = sp - (3+paranum)
 			offset_2 = btab.btabArray[b_pos].varsize + btab.btabArray[b_pos].t_varnum;
 
-			enterMipsCode(5, DATA_BASE, STACK_TOP, " ", GET_OFFSET(offset_1));			// 移动基址fp = sp-3-paranum
-			enterMipsCode(4, STACK_TOP, STACK_TOP, " ", GET_OFFSET(offset_2));		//addi 移动栈顶指针
-			enterMipsCode(18, cur_mid.z, " ", " ", 0);		//jal label
-			//enterMipsCode(5, STACK_TOP, STACK_TOP, " ", GET_OFFSET(offset_2));		//addi 移动栈顶指针
-          //  enterMipsCode(4, DATA_BASE, STACK_TOP, " ", GET_OFFSET(offset_1));			// 移动基址fp = sp-3-paranum
+			Enter_Mips_List(5, DATA_BASE, STACK_TOP, " ", GET_OFFSET(offset_1));			// 移动基址fp = sp-3-paranum
+			Enter_Mips_List(4, STACK_TOP, STACK_TOP, " ", GET_OFFSET(offset_2));		//addi 移动栈顶指针
+			Enter_Mips_List(18, cur_mid.z, " ", " ", 0);		//jal label
+			//Enter_Mips_List(5, STACK_TOP, STACK_TOP, " ", GET_OFFSET(offset_2));		//addi 移动栈顶指针
+          //  Enter_Mips_List(4, DATA_BASE, STACK_TOP, " ", GET_OFFSET(offset_1));			// 移动基址fp = sp-3-paranum
 			break;
 		default:
 			//std::cout << "There is a bug in midtomipsdeal--noConJumpDeal, switch--default" << std::endl;
@@ -912,7 +914,7 @@ namespace compiler {
 		//if (op < 10 || op > 15) std::cout << "There is a bug in midThere is a bug in midtomipsdeal--conditionJumpDeal, op out of range. mid_pos:" << mid_pos << std::endl;
          if(cur_mid.x=="i_1"){
             findInMap(cur_mid.x, 1, tmp_info);
-            std::cout<<"检查x在s中的inreg"<<tmp_info.inReg<<std::endl;
+        //    std::cout<<"检查x在s中的inreg"<<tmp_info.inReg<<std::endl;
            // std::cout<<"tep_info中的寄存器id"<<tmp_info.r_addr<<std::endl;
          }
 		x_flag = dealOperand(cur_mid.x, x, x_num);
@@ -924,8 +926,8 @@ namespace compiler {
 		if (x_flag == 2) {		//x为数字
 		    //temp_cnt--;
 			r_id = allocR_REG(" ",-1, 1);
-			x = idToReg(r_id);
-			enterMipsCode(19, x, " ", " ", x_num); //将值加载到寄存器中
+			x = id_Trans_Regnum(r_id);
+			Enter_Mips_List(19, x, " ", " ", x_num); //将值加载到寄存器中
 												   //释放该寄存器
 			returnReg(1);
 		}
@@ -933,10 +935,10 @@ namespace compiler {
 		clearRegs(3);	//跳转之前清空寄存器
 
 		if (y_flag == 2) {			//y为数字
-			enterMipsCode(op, cur_mid.z, x, " ", y_num);  // x与offset比较
+			Enter_Mips_List(op, cur_mid.z, x, " ", y_num);  // x与offset比较
 		}
 		else {
-			enterMipsCode(op, cur_mid.z, x, y, 0);		// x 与 y 比较
+			Enter_Mips_List(op, cur_mid.z, x, y, 0);		// x 与 y 比较
 		}
 
 	}
@@ -951,24 +953,24 @@ namespace compiler {
 		switch (cur_mid.isstart) {
 		case 1:			//普通的lab标签
             findInMap("i_1", 1, tmp_info);
-            std::cout<<"检查设置标签前x在s中的inreg"<<tmp_info.inReg<<std::endl;
+          //  std::cout<<"检查设置标签前x在s中的inreg"<<tmp_info.inReg<<std::endl;
            // std::cout<<"tep_info中的寄存器id"<<tmp_info.r_addr<<std::endl;
 
 			clearRegs(3);		//清空寄存器(代码基本块的开端)
             findInMap("i_1", 1, tmp_info);
-            std::cout<<"检查设置标签以3清空寄存器后x在s中的inreg"<<tmp_info.inReg<<std::endl;
-			enterMipsCode(22, cur_mid.y, " ", " ", 0);
+          //  std::cout<<"检查设置标签以3清空寄存器后x在s中的inreg"<<tmp_info.inReg<<std::endl;
+			Enter_Mips_List(22, cur_mid.y, " ", " ", 0);
 
 			break;
 		case 2:			//main 函数入口标签, 在此处处理main空间的指针移动, 因为没有函数call main，对于其他函数则在call的时候处理
-			enterMipsCode(22, cur_mid.y, " ", " ", 0);
+			Enter_Mips_List(22, cur_mid.y, " ", " ", 0);
 			t_pos = find_in_tab("main");
 			b_pos = tab.tabArray[t_pos].ref;
 			offset = 3 + btab.btabArray[b_pos].varsize + btab.btabArray[b_pos].t_varnum;
-			enterMipsCode(23, RE_LABEL_REG, "exit", " ", 0);				//设置程序出口
-			enterMipsCode(20, DATA_BASE, STACK_TOP, " ", 0);
+			Enter_Mips_List(23, RE_LABEL_REG, "exit", " ", 0);				//设置程序出口
+			Enter_Mips_List(20, DATA_BASE, STACK_TOP, " ", 0);
 			//addi 负数
-			enterMipsCode(4, STACK_TOP, STACK_TOP, " ", GET_OFFSET(offset));
+			Enter_Mips_List(4, STACK_TOP, STACK_TOP, " ", GET_OFFSET(offset));
 			if (opt) funcAllocRegs(mid_pos);
 			break;
 		case 3:			//call函数后面返回标签
@@ -976,18 +978,18 @@ namespace compiler {
 			//clearRegs(2);	//处理寄存器
 			//S_Map.clear();
 
-			enterMipsCode(22, cur_mid.y, " ", " ", 0);
-			enterMipsCode(20, STACK_TOP, DATA_BASE, " ", 0);				//恢复栈顶空间
-			enterMipsCode(8, DATA_BASE, DATA_BASE, " ", GET_OFFSET(1));		// 恢复调用函数的fp
-			enterMipsCode(8, RE_LABEL_REG, DATA_BASE, " ", GET_OFFSET(0));		//恢复调用函数的返回地址
-			//enterMipsCode(8, DATA_BASE, STACK_TOP, " ", GET_OFFSET(1));		// 恢复调用函数的fp
-			//enterMipsCode(8, RE_LABEL_REG, DATA_BASE, " ", GET_OFFSET(0));		//恢复调用函数的返回地址
+			Enter_Mips_List(22, cur_mid.y, " ", " ", 0);
+			Enter_Mips_List(20, STACK_TOP, DATA_BASE, " ", 0);				//恢复栈顶空间
+			Enter_Mips_List(8, DATA_BASE, DATA_BASE, " ", GET_OFFSET(1));		// 恢复调用函数的fp
+			Enter_Mips_List(8, RE_LABEL_REG, DATA_BASE, " ", GET_OFFSET(0));		//恢复调用函数的返回地址
+			//Enter_Mips_List(8, DATA_BASE, STACK_TOP, " ", GET_OFFSET(1));		// 恢复调用函数的fp
+			//Enter_Mips_List(8, RE_LABEL_REG, DATA_BASE, " ", GET_OFFSET(0));		//恢复调用函数的返回地址
 
 			//if(opt) funcAllocRegs(mid_pos);
 			if (opt && mid_pos + 1 != MidCodeOptT.mdc) loadScountMap(mid_pos);
 			break;
 		case 4:				//函数开始标签, 只是打印标签不做处理
-			enterMipsCode(22, cur_mid.y, " ", " ", 0);
+			Enter_Mips_List(22, cur_mid.y, " ", " ", 0);
 			//分配全局寄存器
 			if (opt) funcAllocRegs(mid_pos);
 
@@ -1031,9 +1033,9 @@ namespace compiler {
 		else {
 			//std::cout << "There is a bug in midtomipsdeal--inDeal, y not ints or chars. mid_pos:" << mid_pos << std::endl;
 		}
-		enterMipsCode(19, "$v0", " ", " ", v0_para);
-		enterMipsCode(21, " ", " ", " ", 0);
-		enterMipsCode(20, y, "$v0", " ", 0);
+		Enter_Mips_List(19, "$v0", " ", " ", v0_para);
+		Enter_Mips_List(21, " ", " ", " ", 0);
+		Enter_Mips_List(20, y, "$v0", " ", 0);
 	}
 
 		//输出的处理
@@ -1042,32 +1044,32 @@ namespace compiler {
 		int y_flag, y_num;
 		if (cur_mid.x != " ") {	//有字符串
 			x = cur_mid.x;
-			x_label = creatStrLabel(x);
-			enterMipsCode(19, "$v0", " ", " ", 4);
-			enterMipsCode(23, "$a0", x_label, " ", 0); //???
-			enterMipsCode(21, " ", " ", " ", 0);
+			x_label = Get_Label_For_Str(x);
+			Enter_Mips_List(19, "$v0", " ", " ", 4);
+			Enter_Mips_List(23, "$a0", x_label, " ", 0); //???
+			Enter_Mips_List(21, " ", " ", " ", 0);
 		}
 		if (cur_mid.y != " ") {	//有表达式
 			y_flag = dealOperand(cur_mid.y, y, y_num);
 			if (cur_mid.z != " ") {	//z == char  打印字符
-				enterMipsCode(19, "$v0", " ", " ", 11);
+				Enter_Mips_List(19, "$v0", " ", " ", 11);
 			}
 			else {
-				enterMipsCode(19, "$v0", " ", " ", 1);
+				Enter_Mips_List(19, "$v0", " ", " ", 1);
 			}
 			if (y_flag == 2) {
-				enterMipsCode(19, "$a0", " ", " ", y_num);
+				Enter_Mips_List(19, "$a0", " ", " ", y_num);
 			}
 			else {
-				enterMipsCode(20, "$a0", y, " ", 0);
+				Enter_Mips_List(20, "$a0", y, " ", 0);
 			}
-			enterMipsCode(21, " ", " ", " ", 0);
+			Enter_Mips_List(21, " ", " ", " ", 0);
 		}
 
 		//在每一个输出语句后面打印换行符
-		enterMipsCode(19, "$v0", " ", " ", 11);
-		enterMipsCode(19, "$a0", " ", " ", '\n');
-		enterMipsCode(21, " ", " ", " ", 0);
+		Enter_Mips_List(19, "$v0", " ", " ", 11);
+		Enter_Mips_List(19, "$a0", " ", " ", '\n');
+		Enter_Mips_List(21, " ", " ", " ", 0);
 	}
 
 		//传递参数处理,将参数存入内存中 sw 9
@@ -1080,13 +1082,13 @@ namespace compiler {
 			return;
 		}
 		if (y_flag == 2) {		//数字
-			enterMipsCode(19, "$a1", " ", " ", y_num);			// 此时的栈顶sp指向参数区开始地方
-			enterMipsCode(9, "$a1", STACK_TOP, " ", 0);
-			enterMipsCode(4, STACK_TOP, STACK_TOP, " ", GET_OFFSET(1));		//addi 栈指针上移
+			Enter_Mips_List(19, "$a1", " ", " ", y_num);			// 此时的栈顶sp指向参数区开始地方
+			Enter_Mips_List(9, "$a1", STACK_TOP, " ", 0);
+			Enter_Mips_List(4, STACK_TOP, STACK_TOP, " ", GET_OFFSET(1));		//addi 栈指针上移
 		}
 		else {
-			enterMipsCode(9, y, STACK_TOP, " ", 0);
-			enterMipsCode(4, STACK_TOP, STACK_TOP, " ", GET_OFFSET(1));		//addi 栈指针上移1格
+			Enter_Mips_List(9, y, STACK_TOP, " ", 0);
+			Enter_Mips_List(4, STACK_TOP, STACK_TOP, " ", GET_OFFSET(1));		//addi 栈指针上移1格
 		}
 	}
 
@@ -1099,9 +1101,9 @@ namespace compiler {
 			exit(1);
 		}
 		Call_Func_Name[Call_Func_Ptr++] = cur_mid.y;
-		enterMipsCode(9, RE_LABEL_REG, DATA_BASE, " ", GET_OFFSET(0));		//将当前$ra保存在原函数
-		enterMipsCode(9, DATA_BASE, STACK_TOP, " ", GET_OFFSET(1));		//设置当前被调用函数的prev_abp
-		enterMipsCode(4, STACK_TOP, STACK_TOP, " ", GET_OFFSET(3));		//addi 移动栈顶指针内务区到内务区顶
+		Enter_Mips_List(9, RE_LABEL_REG, DATA_BASE, " ", GET_OFFSET(0));		//将当前$ra保存在原函数
+		Enter_Mips_List(9, DATA_BASE, STACK_TOP, " ", GET_OFFSET(1));		//设置当前被调用函数的prev_abp
+		Enter_Mips_List(4, STACK_TOP, STACK_TOP, " ", GET_OFFSET(3));		//addi 移动栈顶指针内务区到内务区顶
 	}
 
 		//本文件的主函数
@@ -1109,7 +1111,7 @@ namespace compiler {
 		midcode cur_mid;
 		int midend;
 		level = 1;
-		int FuncVarAllocCount = 0;	//记录当前函数分配了几个全局寄存器, 在每次处理函数开始时清0
+		int Alloc_SCount_In_Func = 0;	//记录当前函数分配了几个全局寄存器, 在每次处理函数开始时清0
 		//初始化变量
 		clearRegs(0);
 		MipsTable.mpc = 0;
@@ -1184,7 +1186,7 @@ namespace compiler {
 				break;
 			}
 			//每一行处理结束清除busy
-			deleteBusy();//???
+			deleteBusy();
 		}
 	}
 

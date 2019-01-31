@@ -1,0 +1,261 @@
+RET: func_return_value
+
+    int  factorial()
+    para  ints  n
+
+factorial_begin_: 
+    #0 = n
+    bgt  #0, 1, _6_label_
+    ret  1
+
+_6_label_: 
+    #1 = n
+    call  factorial
+    #2 = n
+    #3 = #2 - 1
+    push  #3
+    jal  factorial_begin_
+
+call_13_: 
+    #4 = *RET
+    #5 = #1 * #4
+    ret  #5
+    int  mod()
+    para  ints  x
+    para  ints  y
+
+mod_begin_: 
+    #13 = x
+    #10 = y
+    #7 = #13
+    #9 = #7 / #10
+    #11 = #9 * #10
+    x = #7 - #11
+    ret  x
+    void  swap()
+    para  ints  x
+    para  ints  y
+
+swap_begin_: 
+    #14 = x
+    out   x = , #14
+    #15 = y
+    out   y = , #15
+    #18 = x
+    #16 = y
+    x = #16
+    y = #18
+    temp = y
+    out   SWAP x = , x
+    #20 = y
+    out   SWAP y = , #20
+    ret   
+    void  complete_num()
+    para  ints  val
+
+complete_num_begin_: 
+    j = val
+
+_55_label_: 
+    #22 = j
+    bge  #22, 1024, _128_label_
+    i = 1
+    s = j
+    n = 0 - 1
+
+_63_label_: 
+    #26 = j
+    #25 = i
+    bge  #25, #26, _104_label_
+    #30 = i
+    #27 = j
+    #29 = #27 / #30
+    x1 = #29 * #30
+    call  mod
+    #32 = j
+    push  #32
+    #33 = i
+    push  #33
+    jal  mod_begin_
+
+call_79_: 
+    #34 = *RET
+    bne  #34, 0, _99_label_
+    #106 = n
+    #103 = s
+    #38 = i
+    #37 = #103
+    s = #37 - #38
+    #35 = #106
+    n = #35 + 1
+    blt  n, 128, _92_label_
+    out   OVERFLOW!          ,  
+
+_92_label_: 
+    #41 = n
+    bge  #41, 128, _98_label_
+    #43 = i
+    #42 = n
+    k[#42] = #43
+
+_98_label_: 
+
+_99_label_: 
+    #102 = i
+    #44 = #102
+    i = #44 + 1
+    goto  _63_label_
+
+_104_label_: 
+    #46 = s
+    bne  #46, 0, _123_label_
+    #47 = j
+    out   complete number: , #47
+    i = 0
+
+_110_label_: 
+    #49 = n
+    #48 = i
+    bgt  #48, #49, _121_label_
+    #51 = i
+    #50 = k[#51]
+    out    , #50
+    #104 = i
+    #52 = #104
+    i = #52 + 1
+    goto  _110_label_
+
+_121_label_: 
+    out            ,  
+
+_123_label_: 
+    #100 = j
+    #54 = #100
+    j = #54 + 1
+    goto  _55_label_
+
+_128_label_: 
+    out   ---------------------------------------------------------------          ,  
+    i = 0
+    a = i
+
+_132_label_: 
+    #56 = i
+    bge  #56, 1024, _157_label_
+    #99 = a
+    #95 = a
+    #90 = i
+    #71 = #90
+    i = #71 + 1
+    #61 = n
+    #60 = j
+    c = #60 * #61
+    #63 = #99
+    b = #63 * #71
+    #68 = b + b
+    a = #68 + c
+    goto  _132_label_
+
+_157_label_: 
+    i = 0
+    b = a
+
+_161_label_: 
+    #74 = i
+    bge  #74, 1024, _172_label_
+    #87 = b
+    #83 = i
+    #78 = #83
+    i = #78 + 1
+    #75 = #87
+    b = #75 + #78
+    goto  _161_label_
+
+_172_label_: 
+    #80 = b
+    out   b = , #80
+    out   ---------------------------------------------------------------          ,  
+    m = 2
+    leap = 1
+    h = 0
+
+_179_label_: 
+    #81 = m
+    bgt  #81, 1024, _234_label_
+    i = 2
+    #82 = m
+    k2 = #82 / 2
+
+_186_label_: 
+    #85 = k2
+    #84 = i
+    bgt  #84, #85, _211_label_
+    #89 = i
+    #86 = m
+    #88 = #86 / #89
+    x2 = #88 * #89
+    call  mod
+    #91 = m
+    push  #91
+    #92 = i
+    push  #92
+    jal  mod_begin_
+
+call_202_: 
+    #93 = *RET
+    bne  #93, 0, _206_label_
+    leap = 0
+
+_206_label_: 
+    #77 = i
+    #94 = #77
+    i = #94 + 1
+    goto  _186_label_
+
+_211_label_: 
+    #96 = leap
+    bne  #96, 1, _228_label_
+    #97 = m
+    out  #97
+    #79 = h
+    #98 = #79
+    h = #98 + 1
+    #101 = h / 10
+    x2 = #101 * 10
+    bne  x2, h, _227_label_
+    out            ,  
+
+_227_label_: 
+
+_228_label_: 
+    #76 = m
+    leap = 1
+    #105 = #76
+    m = #105 + 1
+    goto  _179_label_
+
+_234_label_: 
+    #107 = h
+    out            The total is , #107
+    ret   
+    void  main()
+
+main: 
+    call  factorial
+    push  10
+    jal  factorial_begin_
+
+call_243_: 
+    n = *RET
+    out   10! = , n
+    call  swap
+    push  5
+    push  10
+    jal  swap_begin_
+
+call_252_: 
+    call  complete_num
+    push  2
+    jal  complete_num_begin_
+
+call_256_: 

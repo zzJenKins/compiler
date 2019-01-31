@@ -1,3 +1,2 @@
 index	eltyp	high	
-0	ints	10	
-1	chars	10	
+0	ints	128	

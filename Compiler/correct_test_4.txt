@@ -1,0 +1,33 @@
+int dag_test_1(int a, int b){
+	int c, d, e[5];
+	a = b + 8;
+	b = a * 7;
+	c = a + b;
+	e[2 + 1] = 5;
+	e[4] = 6;
+	d = e[1 + 2];
+	printf("dag_test_1:");
+	printf("a must be 11:", a);
+	printf("b must be 77:", b);
+	printf("c must be 88:", c);
+	printf("d must be 5:", d);
+	return (d);
+}
+
+void main(){
+	int a, b, c, d;
+    	int result1, result2;
+	a = 2;
+	b = 3;
+	c = dag_test_1(a,b);
+	d = 7;
+	result1 = a + b;
+	b = result1 + b + c;
+	result2 = b + c + d;
+	printf("main:");
+	printf("b+c+d must be 25", b + c + d);
+	printf("result1 must be 5", result1);
+	printf("result2 must be 25", result2);
+
+	return;
+}

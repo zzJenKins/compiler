@@ -1,0 +1,9 @@
+int a[10];
+int b;
+int func()
+{
+return ('c');  
+}
+void main(){
+	b=10;
+}

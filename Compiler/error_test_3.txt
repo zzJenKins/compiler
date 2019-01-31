@@ -1,0 +1,198 @@
+const int MAXNUM = 11;
+const char zero_error = 'Z', large_error = 'L';
+const char god_error = 'G';
+int pos, global_repeat;
+
+void print_hello(){
+    printf("Please enter the num(if the num >=11, we only print 11 numbers) :");
+}
+
+void print_error(char type){
+    switch(type){
+        case 'a':{
+            printf("There are some error:",zero_error);
+            printf("The number < 0");
+            printf("The fibo position of that is:",pos);
+        }
+        case 'b':{
+            printf("There are some error:",large_error);
+	    printf("The number >= 12");
+            printf("The fibo position of that is:",pos);
+        }
+        case 'c':{
+            printf("There are some error:",god_error);
+            printf("The number == 11");
+            printf("The fibo position of that is:",pos);
+        }
+    }
+    return;
+}
+
+int test_fibo(int n){
+    if(n < 0) {
+        print_error('a');
+        return (-+1);
+    }
+    switch(n+1-1){
+        case +0:
+            return ('a'-'a');
+        case 1:
+            return (--1);
+	default:
+	{	printf("n is not 1 or 0" );
+		{;}}
+    }
+    if(n >= 12){
+        print_error('b');
+        return (+-1);
+    }
+    if(n == 11) {
+        print_error('c');
+        return (-1);
+    }
+    return (test_fibo(n-1)+test_fibo(n-2));
+}
+
+void test_empty(){
+    {{{{;}}}}
+    {
+        ;
+    }
+}
+
+void test_global_repeat(){
+    int global_repeat;
+    global_repeat = 7;
+    printf("global_repeat must be 7:", global_repeat);
+}
+
+void test_expression(){
+    int int_test1, int_test2, int_test3, int_test4, int_test5, int_test6;
+    int_test1 = +4 * 'c' - 6/test_fibo(2);
+    int_test2 = -5 + '+' - '9';
+    int_test3 = --5 + 90;
+    int_test4 = -+5;
+    int_test5 = -0 + 09;
+    int_test6 = +00 + +9 + -5;
+
+    printf("exp_must be 390:",int_test1);
+if(int_test1 == (340+50)*001) printf("Sccessed!");
+    printf("exp_must be -19:",int_test2);
+if(int_test2 == -19) printf("Sccessed!");
+    printf("exp_must be 95:",int_test3);
+if(int_test3 == 95) printf("Sccessed!");
+    printf("exp_must be -5:",int_test4);
+if(int_test4 == -5) printf("Sccessed!");
+    printf("exp_must be 9:",int_test5);
+if(int_test5 == 9) printf("Sccessed!");
+    printf("exp_must be 4:",int_test6);
+if(int_test6 == 4) printf("Sccessed!");
+}
+
+int call_add(int t1, int t2){
+    return (t1+t2);
+}
+int call_div(int t1, int t2){
+    return (t1/t2);
+}
+int call_mul(int t1, int t2){
+    return (t1*t2);
+}
+int call_sub(int t1, int t2){
+    return (t1-t2);
+}
+
+void call_jal_test(){
+    printf("call_jal_test_result must be 8:",call_add(test_fibo(4),test_fibo(5)));
+    printf("call_jal_test_result must be 1:", call_div(1--2,test_fibo(4)));
+    printf("call_jal_test_result must be 9:", call_mul(test_fibo(4),3));
+    printf("call_jal_test_result must be 0:", call_sub(2++1,test_fibo(4)));
+    return ;
+}
+
+
+int mod(int a,int b){
+	int c;
+	c = a / b;
+	b = b * c;
+	if(a == b)
+		return(0);
+	return(a-b);
+}
+
+int gcd(int a,int b){
+	int c;
+	if(a < b){
+		c = a;
+		a = b;
+		b = c;
+	}
+	if(mod(a,b) == 0){
+		return(b);
+	}
+	return(gcd(a,mod(a,b)));
+}
+
+void recursion_test(){
+    int a, b;
+    a = 24;
+    b = 36;
+    printf("gcd_ must be 12:",gcd(a,b));
+}
+
+char return_char_test(){
+	return ('_);
+}
+
+
+
+void main(){
+    const int t1 = 0, t2 = 1;
+    const int t3 = -1;
+    const char c1 = 'a';
+    int num, result[11], i;
+
+    int temp;
+    char c2, c3;char A4;
+
+    global_repeat = 10;
+    print_hello();
+    i = 0;
+    pos = 0;
+    scanf(num);
+    {
+	test_empty();
+        while(i < num + 1){
+            temp = test_fibo(i);
+            if  (temp != -1) 
+		result[i] = temp;
+            i = i + 1;
+            pos = pos +1;
+        }
+    }
+    if (num >= 0){
+        i = 0;
+        while(i < MAXNUM){            
+            if(i<num+1){
+		printf("result:\n");
+		printf(result[i]);
+	    }
+            i = i + 1;
+        }
+    }
+    printf("GLOBAL global_repeat must be 10:", global_repeat);
+    test_global_repeat();
+    test_expression();
+    call_jal_test();
+    recursion_test();
+    c2=return_char_test();
+    if(c2=='_'){
+	printf("return_char_test sccessed!");
+    }
+	;
+{;} {}
+scanf(c2,temp);
+printf("c2==",c2);
+printf("temp==",temp);
+    return;
+}

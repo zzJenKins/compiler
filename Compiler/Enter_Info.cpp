@@ -68,7 +68,7 @@ namespace compiler{
 	}
 
 	//isstart > 0 都要为入口地址， 其中isstart = 2 代表 mian函数入口标签, isstart = 3代表函数调用返回地址, isstart = 4表示非main函数开始位置
-	void enterMidCode(int op, std::string z, std::string x, std::string y, int isstart){
+	void Enter_Mid_List(int op, std::string z, std::string x, std::string y, int isstart){
 		if (MidCodeT.mdc == MIDCODEMAX) {
 			fatal(4,lc);
 		}
@@ -81,7 +81,7 @@ namespace compiler{
 		MidCodeT.mdc++;
 	}
 
-	void enterMidOptCode(int op, std::string z, std::string x, std::string y, int isstart) {
+	void Enter_Mid_Opt_List(int op, std::string z, std::string x, std::string y, int isstart) {
 		if (MidCodeOptT.mdc == MIDCODEMAX) {
 			fatal(6, lc);
 		}
@@ -93,7 +93,7 @@ namespace compiler{
 		MidCodeOptT.mdc++;
 	}
 
-	void enterMipsCode(int op, std::string z, std::string x, std::string y, int offset) {
+	void Enter_Mips_List(int op, std::string z, std::string x, std::string y, int offset) {
 		if (MipsTable.mpc == MIPSCODEMAX) {
 			fatal(5, lc);
 		}
@@ -105,68 +105,4 @@ namespace compiler{
 		MipsTable.mpc++;
 	}
 
-	void enterMipsOptCode(int op, std::string z, std::string x, std::string y, int offset) {
-		if (MipsTableOpt.mpc == MIPSCODEMAX) {
-			fatal(5, lc);
-		}
-		MipsTableOpt.mipscodeArray[MipsTableOpt.mpc].op = op;
-		MipsTableOpt.mipscodeArray[MipsTableOpt.mpc].z = z;
-		MipsTableOpt.mipscodeArray[MipsTableOpt.mpc].x = x;
-		MipsTableOpt.mipscodeArray[MipsTableOpt.mpc].y = y;
-		MipsTableOpt.mipscodeArray[MipsTableOpt.mpc].offset = offset;
-		MipsTableOpt.mpc++;
-	}
-
-
-
-	void printTab() {
-		std::fstream tab_out_file;
-		tab_out_file.open("tab_out.txt", std::fstream::out);
-		tab_out_file <<"index\t" <<"name\t" << "obj\t\t" << "type\t" << "adr\t" << "ref\t" << "link\t" << "lev\t" << std::endl;
-	for (int i = 0; i < tab.t; i++) {
-			tab_out_file <<i<<"\t" <<tab.tabArray[i].name<<"\t"<< objecttyp_info[tab.tabArray[i].obj]<<"\t"<<types_info[tab.tabArray[i].type]<<"\t"
-				<<tab.tabArray[i].adr<<"\t"<<tab.tabArray[i].ref<<"\t"<<tab.tabArray[i].link<<"\t"
-				<<tab.tabArray[i].lev<<"\t"<<std::endl;
-		}
-	}
-
-	void printATab() {
-		std::fstream atab_out_file;
-		atab_out_file.open("atab_out.txt", std::fstream::out);
-		atab_out_file <<"index\t"<< "eltyp\t" << "high\t" << std::endl;
-		for (int i = 0; i < atab.a; i++) {
-			atab_out_file << i << "\t" << types_info[atab.atabArray[i].eltyp] << "\t" << atab.atabArray[i].high << "\t" << std::endl;
-		}
-	}
-
-	void printBTab() {
-		std::fstream btab_out_file;
-		btab_out_file.open("btab_out.txt", std::fstream::out);
-		btab_out_file << "index\t" << "last\t" << "lastpar\t" << "kind\t" << "paranum\t" << "varsize\t" << "t_varnum\t"<<std::endl;
-		for (int i = 0; i < btab.b; i++) {
-			btab_out_file << i << "\t" << btab.btabArray[i].last << "\t" << btab.btabArray[i].lastpar << "\t" << types_info[btab.btabArray[i].kind] << "\t"
-				<< btab.btabArray[i].paranum << "\t" << btab.btabArray[i].varsize << "\t" << btab.btabArray[i].t_varnum<<"\t"<<std::endl;
-
-		}
-	}
-
-	void printTMap() {
-		std::fstream tmap_out_file;
-		auto iter = T_Map.begin();
-		tmap_out_file.open("tmap_out.txt", std::fstream::out);
-		tmap_out_file << "key\t" << "value-inReg\t" << "value-r_addr\t" << "value-stack_addr\t" << std::endl;
-		while (iter != T_Map.end()) {
-			tmap_out_file << iter->first << "\t" << iter->second.inReg << "\t" << iter->second.r_addr << "\t" << iter->second.stack_addr << "\t" << std::endl;
-			iter++;
-		}
-	}
-
-	void printMidCode() {
-		std::fstream MidCode_file;
-		MidCode_file.open("midcode_out.txt", std::fstream::out);
-		for (int i = 0; i < MidCodeT.mdc; i++) {
-			MidCode_file << MidOpKind[MidCodeT.midcodeArray[i].op] << "\t" << MidCodeT.midcodeArray[i].z << " " << MidCodeT.midcodeArray[i].x
-				<< " " << MidCodeT.midcodeArray[i].y  << "\t"<< MidCodeT.midcodeArray[i].isstart<< std::endl;
-		}
-	}
 }

@@ -1,0 +1,9 @@
+dag_test_1:  
+a must be 11:  11
+b must be 77:  77
+c must be 88:  88
+d must be 5:  5
+main:  
+b+c+d must be 25  25
+result1 must be 5  5
+result2 must be 25  25

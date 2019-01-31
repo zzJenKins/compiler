@@ -76,42 +76,4 @@ int fun7(){
     return(abc[0]);
 }
 
-void main(){        
-    int flag;
-    int num;
-    char ch;
-    num=0;
-    ch='a';    
-    scanf(flag);
-    switch(flag){
-        case 1:{
-            num=fun1(2,3);
-            ch=fun2(2,3);
-            fun3(2,3);
-            fun5(2,3);
-            fun6(2,3);
-        }    
-        case 2:{
-            num=fun1(3,2);
-            ch=fun2(3,2);
-            fun3(3,2);
-            fun5(3,2);
-            fun6(3,2);    
-        }
-        case 3:{
-            num=fun1(2,2);
-            ch=fun2(2,2);
-            fun3(2,2);
-            fun5(2,2);
-            fun6(2,2);    
-        }        
-        case 4:
-            fun4();    
-        case 5:{
-            num=fun7();            
-        }    
-        default:printf("error!");
-    }
-    printf(num);
-    printf(ch);
-}
+void main()

@@ -10,5 +10,6 @@
 #include "Block_Deal.h"
 #include "Print_Result.h"
 #include "Mid_to_Mips.h"
+#include "Optimized_Mid_Code.h"
 
 #endif // MAIN_H_INCLUDED

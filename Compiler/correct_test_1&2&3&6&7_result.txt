@@ -1,0 +1,815 @@
+²âÊÔ1£º
+Please enter the num(if the num >=11, we only print 11 numbers) :  
+**** user input : 15
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+There are some error:  G
+The number == 11  
+The fibo position of that is:  11
+n is not 1 or 0  
+There are some error:  L
+The number >= 12  
+The fibo position of that is:  12
+n is not 1 or 0  
+There are some error:  L
+The number >= 12  
+The fibo position of that is:  13
+n is not 1 or 0  
+There are some error:  L
+The number >= 12  
+The fibo position of that is:  14
+n is not 1 or 0  
+There are some error:  L
+The number >= 12  
+The fibo position of that is:  15
+result:\n  
+0
+result:\n  
+1
+result:\n  
+1
+result:\n  
+2
+result:\n  
+3
+result:\n  
+5
+result:\n  
+8
+result:\n  
+13
+result:\n  
+21
+result:\n  
+34
+result:\n  
+55
+GLOBAL global_repeat must be 10:  10
+global_repeat must be 7:  7
+n is not 1 or 0  
+exp_must be 390:  390
+Sccessed!  
+exp_must be -19:  -19
+Sccessed!  
+exp_must be 95:  95
+Sccessed!  
+exp_must be -5:  -5
+Sccessed!  
+exp_must be 9:  9
+Sccessed!  
+exp_must be 4:  4
+Sccessed!  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+call_jal_test_result must be 8:  8
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+call_jal_test_result must be 1:  1
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+call_jal_test_result must be 9:  9
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+call_jal_test_result must be 0:  0
+gcd_ must be 12:  12
+return_char_test sccessed!  
+**** user input : a
+**** user input : 4
+c2==  a
+temp==  4
+
+
+²âÊÔ2£º
+Please enter the num(if the num >=11, we only print 11 numbers) :  
+**** user input : 10
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+result:\n  
+0
+result:\n  
+1
+result:\n  
+1
+result:\n  
+2
+result:\n  
+3
+result:\n  
+5
+result:\n  
+8
+result:\n  
+13
+result:\n  
+21
+result:\n  
+34
+result:\n  
+55
+GLOBAL global_repeat must be 10:  10
+global_repeat must be 7:  7
+n is not 1 or 0  
+exp_must be 390:  390
+Sccessed!  
+exp_must be -19:  -19
+Sccessed!  
+exp_must be 95:  95
+Sccessed!  
+exp_must be -5:  -5
+Sccessed!  
+exp_must be 9:  9
+Sccessed!  
+exp_must be 4:  4
+Sccessed!  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+call_jal_test_result must be 8:  8
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+call_jal_test_result must be 1:  1
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+call_jal_test_result must be 9:  9
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+call_jal_test_result must be 0:  0
+gcd_ must be 12:  12
+return_char_test sccessed!  
+**** user input : S
+**** user input : 2
+c2==  S
+temp==  2
+
+
+
+²âÊÔ3£º
+Please enter the num(if the num >=11, we only print 11 numbers) :  
+**** user input : 0
+result:\n  
+0
+GLOBAL global_repeat must be 10:  10
+global_repeat must be 7:  7
+n is not 1 or 0  
+exp_must be 390:  390
+Sccessed!  
+exp_must be -19:  -19
+Sccessed!  
+exp_must be 95:  95
+Sccessed!  
+exp_must be -5:  -5
+Sccessed!  
+exp_must be 9:  9
+Sccessed!  
+exp_must be 4:  4
+Sccessed!  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+call_jal_test_result must be 8:  8
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+call_jal_test_result must be 1:  1
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+call_jal_test_result must be 9:  9
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+call_jal_test_result must be 0:  0
+gcd_ must be 12:  12
+return_char_test sccessed!  
+**** user input : a
+**** user input : 1
+c2==  a
+temp==  1
+
+²âÊÔ4£º
+Please enter the num(if the num >=11, we only print 11 numbers) :  
+**** user input : 1
+result:\n  
+0
+result:\n  
+1
+GLOBAL global_repeat must be 10:  10
+global_repeat must be 7:  7
+n is not 1 or 0  
+exp_must be 390:  390
+Sccessed!  
+exp_must be -19:  -19
+Sccessed!  
+exp_must be 95:  95
+Sccessed!  
+exp_must be -5:  -5
+Sccessed!  
+exp_must be 9:  9
+Sccessed!  
+exp_must be 4:  4
+Sccessed!  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+call_jal_test_result must be 8:  8
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+call_jal_test_result must be 1:  1
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+call_jal_test_result must be 9:  9
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+call_jal_test_result must be 0:  0
+gcd_ must be 12:  12
+return_char_test sccessed!  
+**** user input : W
+**** user input : 100
+c2==  W
+temp==  100
+
+
+²âÊÔ5£º
+Please enter the num(if the num >=11, we only print 11 numbers) :  
+**** user input : 6
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+result:\n  
+0
+result:\n  
+1
+result:\n  
+1
+result:\n  
+2
+result:\n  
+3
+result:\n  
+5
+result:\n  
+8
+GLOBAL global_repeat must be 10:  10
+global_repeat must be 7:  7
+n is not 1 or 0  
+exp_must be 390:  390
+Sccessed!  
+exp_must be -19:  -19
+Sccessed!  
+exp_must be 95:  95
+Sccessed!  
+exp_must be -5:  -5
+Sccessed!  
+exp_must be 9:  9
+Sccessed!  
+exp_must be 4:  4
+Sccessed!  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+call_jal_test_result must be 8:  8
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+call_jal_test_result must be 1:  1
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+call_jal_test_result must be 9:  9
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+n is not 1 or 0  
+call_jal_test_result must be 0:  0
+gcd_ must be 12:  12
+return_char_test sccessed!  
+**** user input : P
+**** user input : 0
+c2==  P
+temp==  0

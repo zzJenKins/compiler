@@ -1,0 +1,5 @@
+int a,x,y,z;
+void main(){
+a=x+y+z;
+z=x+y;
+}

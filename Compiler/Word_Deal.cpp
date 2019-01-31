@@ -6,6 +6,7 @@
 
 namespace compiler{
     int word_count = 1;
+    	int fileover_flag = 0;
 
 
 	//根据枚举类型Symbol的返回其具体类型名
@@ -17,9 +18,16 @@ namespace compiler{
     void nextch(){
         if(cc>=ll){
             //文件读完了或刚开始进入本程序cc==ll
-           // if(inFile.eof()){
-              //  exit(1);//文件读完了,结束
-            //}
+            if(inFile.eof()){
+               if (fileover_flag == 0) {
+					fileover_flag = 1;
+					return;
+				}
+				else {
+					error(0, lc); //错误处理
+					exit(1);//文件读完了,编译结束
+				}
+            }
            //文件还没有读完，读取新的一行
             for(int i = 0; i < LLNG + 1; i++){ //将暂时盛放当前读取的一行字符的数组初始化，对前150个字符填充'\0'
                 line[i] = '\0';

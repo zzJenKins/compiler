@@ -1,11 +1,12 @@
+
 /*
 	错误信息搜集及处理程序
 */
 #include "Error_Deal.h"
 
 namespace compiler{
-	std::string errormsg[55] = {
-		"文件读完了,编译结束",	//0
+	std::string error_set[55] = {
+		"文件读完了但文件尾有错误,编译结束",	//0
 		"整数太大了",	//1
 		"字符不能为空",	//2
 		"字符结尾应是\'",	//3
@@ -53,20 +54,18 @@ namespace compiler{
 		"case语句格式错误",	//43
 		"除数不能为0",	//44
 		"形参与实参类型不符",				//45
-		"不能对char赋值int类型",			//46
+		"赋值语句左右类型不一致",			//46
 		"case 常量与switch中表达式类型不符",	//47
 		"函数定义内部存在错误",	//48
 		"数组下标错误(越界或非法表达)",	//49
 		"条件格式错误", //50
 		"比较运算符左右类型不一致",//51
-		"case重复"//52
+		"case重复",//52
+		"条件中的表达式不是int型"//53
 	};
 
-	std::string fatalmsg[10] = {
-		//词法分析
+	std::string fatal_set[10] = {
 		"程序中字符串太多了,导致字符串表溢出",	//0
-
-		//语法分析
 		"符号表tab溢出",		//1
 		"分程序表btab溢出", 	//2
 		"数组表atab溢出",		//3
@@ -75,23 +74,23 @@ namespace compiler{
 		"中间代码优化表溢出"	//6
 	};
 
-	//注意error在词法分析和语法分析的跳读问题
-	//pos为出错行数
-	void error(int n , int pos){
+	//注意print_error在词法分析和语法分析的跳读问题
+	//postion为出错行数
+	void error(int n , int postion){
 		IsError = true;
 		if (n == 17 || n == 45) {
-			std::cout << "Warning: " << errormsg[n] << "   line: " << pos << std::endl;
-			erroroutFile << "Warning: " << errormsg[n] << "   line: " << pos << std::endl;
+			std::cout << "Warning: " << error_set[n] << "   atline: " << postion << std::endl;
+			erroroutFile<< "Warning: " << error_set[n] << "   atline: " << postion << std::endl;
 		}
 		else {
-			std::cout << "Error: " << errormsg[n] << "   line: " << pos << std::endl;
-			erroroutFile << "Error: " << errormsg[n] << "   line: " << pos << std::endl;
+			std::cout << "Error: " << error_set[n] << "   atline: " << postion << std::endl;
+			erroroutFile<< "Error: " << error_set[n] << "   atline: " << postion << std::endl;
 		}
 	}
 
-	void fatal(int n, int pos){
-		std::cout << "Fatal: " << fatalmsg[n] << "   line: " << pos << std::endl;
-		erroroutFile<<"Fatal: "<<fatalmsg[n]<<"   line: "<<pos<<std::endl;
+	void fatal(int n, int postion){
+		std::cout << "Fatal: " << fatal_set[n] << "   atline: " << postion << std::endl;
+		erroroutFile<<"Fatal: "<<fatal_set[n]<<"   atline: "<<postion<<std::endl;
 		exit(1);
 	}
 

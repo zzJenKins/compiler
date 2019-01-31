@@ -4,11 +4,16 @@ using namespace compiler;
 int main(){
 	init();
 	block();
-	printMidResult();
-
+	Print_Mid_Code();
 	midtomips(0);
-	printMipsResult();
-
-	std::cout<<"end"<<std::endl;
+	Print_Mips_Code();
+//if(!IsError){
+	//Dag图优化
+	Make_Opt();
+	Print_Mid_Opt_Code();
+	//寄存器优化
+	midtomips(1);
+	Print_Mips_Opt_Code();
+	//}
 	return 0;
 }
